@@ -1,25 +1,19 @@
-package com.example.demo.servlet;
+package com.example.demo;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/health")
 public class HealthServlet extends HttpServlet {
-
+    
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // Setting the response content type
-        resp.setContentType("text/plain");
-        resp.setCharacterEncoding("UTF-8");
-        
-        // Writing the health status message
-        resp.getWriter().write("SkillBarter Backend is UP and Running");
-        
-        // Explicitly setting status code (200 is default, but good for clarity)
-        resp.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"status\":\"UP\"}");
     }
 }

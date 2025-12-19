@@ -1,36 +1,39 @@
-package com.example.demo.dto;
-
-import java.time.LocalDateTime;
+package com.example.demo;
 
 public class MatchDto {
     private Long matchId;
-    private String userAName;
-    private String userBName;
-    private String skillFromA;
-    private String skillFromB;
-    private String status;
-    private LocalDateTime matchedAt;
-
+    private Long offerId;
+    private Long requestId;
+    private Long matchedUserId;
+    private String matchStatus;
+    private Double matchScore;
+    
     public MatchDto() {}
-
+    
+    public MatchDto(Long matchId, Long offerId, Long requestId, Long matchedUserId, String matchStatus, Double matchScore) {
+        this.matchId = matchId;
+        this.offerId = offerId;
+        this.requestId = requestId;
+        this.matchedUserId = matchedUserId;
+        this.matchStatus = matchStatus;
+        this.matchScore = matchScore;
+    }
+    
     public Long getMatchId() { return matchId; }
     public void setMatchId(Long matchId) { this.matchId = matchId; }
-
-    public String getUserAName() { return userAName; }
-    public void setUserAName(String name) { this.userAName = name; }
-
-    public String getUserBName() { return userBName; }
-    public void setUserBName(String name) { this.userBName = name; }
-
-    public String getSkillFromA() { return skillFromA; }
-    public void setSkillFromA(String skill) { this.skillFromA = skill; }
-
-    public String getSkillFromB() { return skillFromB; }
-    public void setSkillFromB(String skill) { this.skillFromB = skill; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public LocalDateTime getMatchedAt() { return matchedAt; }
-    public void setMatchedAt(LocalDateTime matchedAt) { this.matchedAt = matchedAt; }
+    
+    public Long getOfferId() { return offerId; }
+    public void setOfferId(Long offerId) { this.offerId = offerId; }
+    
+    public Long getRequestId() { return requestId; }
+    public void setRequestId(Long requestId) { this.requestId = requestId; }
+    
+    public Long getMatchedUserId() { return matchedUserId; }
+    public void setMatchedUserId(Long matchedUserId) { this.matchedUserId = matchedUserId; }
+    
+    public String getMatchStatus() { return matchStatus; }
+    public void setMatchStatus(String matchStatus) { this.matchStatus = matchStatus; }
+    
+    public Double getMatchScore() { return matchScore; }
+    public void setMatchScore(Double matchScore) { this.matchScore = matchScore; }
 }

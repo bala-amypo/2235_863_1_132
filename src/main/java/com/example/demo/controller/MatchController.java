@@ -1,33 +1,53 @@
-package com.example.demo.controller;
+package com.example.demo;
 
-import com.example.demo.model.SkillMatch;
-import com.example.demo.service.MatchmakingService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/matches")
-@Tag(name = "MatchRecordController")
+@Tag(name = "Match")
 public class MatchController {
-    private final MatchmakingService service;
-
-    public MatchController(MatchmakingService service) {
-        this.service = service;
+    
+    private final MatchService matchService;
+    
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
     }
-
-    @PostMapping("/generate/{userId}")
-    public SkillMatch generate(@PathVariable Long userId) {
-        return service.generateMatch(userId);
+    
+    @PostMapping("/")
+    public ResponseEntity<SkillMatch> createMatch(@RequestParam Long offerId, @RequestParam Long requestId, @RequestParam Long adminUserId) {
+        SkillMatch match = matchService.createMatch(offerId, requestId, adminUserId);
+        return ResponseEntity.ok(match);
     }
-
-    @GetMapping("/user/{userId}")
-    public List<SkillMatch> getForUser(@PathVariable Long userId) {
-        return service.getMatchesForUser(userId);
+    
+    @GetMapping("/")
+    public ResponseEntity<List<SkillMatch>> getAllMatches() {
+        List<SkillMatch> matches = matchService.getAllMatches();
+        return ResponseEntity.ok(matches);
     }
-
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<SkillMatch> getMatch(@PathVariable Long id) {
+        SkillMatch match = matchService.getMatch(id);
+        return ResponseEntity.ok(match);
+    }
+    
     @PutMapping("/{id}/status")
-    public void updateStatus(@PathVariable Long id, @RequestParam String status) {
-        service.updateMatchStatus(id, status);
+    public ResponseEntity<SkillMatch> updateMatchStatus(@PathVariable Long id, @RequestParam String status) {
+        SkillMatch match = matchService.updateMatchStatus(id, status);
+        return ResponseEntity.ok(match);
+    }
+    
+    @GetMapping("/offer/{offerId}")
+    public ResponseEntity<List<SkillMatch>> getMatchesByOffer(@PathVariable Long offerId) {
+        List<SkillMatch> matches = matchService.getMatchesByOffer(offerId);
+        return ResponseEntity.ok(matches);
+    }
+    
+    @GetMapping("/request/{requestId}")
+    public ResponseEntity<List<SkillMatch>> getMatchesByRequest(@PathVariable Long requestId) {
+        List<SkillMatch> matches = matchService.getMatchesByRequest(requestId);
+        return ResponseEntity.ok(matches);
     }
 }
