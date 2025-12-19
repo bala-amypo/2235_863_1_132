@@ -1,8 +1,8 @@
 @Service
-public class SkillOfferServiceImpl implements SkillOfferService {
+public class SkillRequestServiceImpl implements SkillRequestService {
     private final SkillOfferRepository repository;
 
-    public SkillOfferServiceImpl(SkillOfferRepository repository) {
+    public SkillRequestServiceImpl(SkillOfferRepository repository) {
         this.repository = repository;
     }
 
