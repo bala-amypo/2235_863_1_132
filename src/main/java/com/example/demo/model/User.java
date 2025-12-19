@@ -9,13 +9,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(unique = true)
+
+    @Column(unique = true, nullable = false)
     private String email;
+
     private String fullName;
     private String password;
-    private String role; // Defaults to MONITOR in service logic
-    private LocalDateTime createdAt;
+    private String role = "MONITOR"; // Rule: Defaults to MONITOR
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public User() {}
 
