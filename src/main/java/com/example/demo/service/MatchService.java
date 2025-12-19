@@ -1,10 +1,12 @@
-package com.example.demo.service;
+package com.example.demo;
 
-import com.example.demo.model.SkillMatch;
 import java.util.List;
 
 public interface MatchService {
-    SkillMatch generateMatch(Long userId);
-    List<SkillMatch> getMatchesForUser(Long userId);
-    void updateMatchStatus(Long matchId, String status);
+    SkillMatch createMatch(Long offerId, Long requestId, Long adminUserId);
+    SkillMatch getMatch(Long id);
+    List<SkillMatch> getAllMatches();
+    SkillMatch updateMatchStatus(Long matchId, String status);
+    List<SkillMatch> getMatchesByOffer(Long offerId);
+    List<SkillMatch> getMatchesByRequest(Long requestId);
 }

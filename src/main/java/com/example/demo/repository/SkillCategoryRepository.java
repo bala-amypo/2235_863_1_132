@@ -1,10 +1,10 @@
-package com.example.demo.repository;
+package com.example.demo;
 
-import com.example.demo.model.SkillCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
+@Repository
 public interface SkillCategoryRepository extends JpaRepository<SkillCategory, Long> {
-    List<SkillCategory> findByActiveTrue();
-    boolean existsByName(String name);
+    Optional<SkillCategory> findByCategoryName(String categoryName);
 }

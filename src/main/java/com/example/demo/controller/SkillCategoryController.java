@@ -1,33 +1,35 @@
-package com.example.demo.controller;
+package com.example.demo;
 
-import com.example.demo.model.SkillCategory;
-import com.example.demo.service.SkillService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/skills")
-@Tag(name = "SkillController")
+@RequestMapping("/api/categories")
+@Tag(name = "Category")
 public class SkillCategoryController {
-    private final SkillService skillService;
-
-    public SkillCategoryController(SkillService skillService) {
-        this.skillService = skillService;
+    
+    private final SkillCategoryService skillCategoryService;
+    
+    public SkillCategoryController(SkillCategoryService skillCategoryService) {
+        this.skillCategoryService = skillCategoryService;
     }
-
+    
     @PostMapping("/")
-    public SkillCategory create(@RequestBody SkillCategory skill) {
-        return skillService.createSkill(skill);
+    public ResponseEntity<SkillCategory> createCategory(@RequestBody SkillCategory category) {
+        SkillCategory created = skillCategoryService.createCategory(category);
+        return ResponseEntity.ok(created);
     }
-
+    
     @GetMapping("/")
-    public List<SkillCategory> getAll() {
-        return skillService.getAllSkills();
+    public ResponseEntity<List<SkillCategory>> getAllCategories() {
+        List<SkillCategory> categories = skillCategoryService.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
-
-    @PutMapping("/{id}/deactivate")
-    public void deactivate(@PathVariable Long id) {
-        skillService.deactivateSkill(id);
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<SkillCategory> getCategory(@PathVariable Long id) {
+        SkillCategory category = skillCategoryService.getCategory(id);
+        return ResponseEntity.ok(category);
     }
 }
