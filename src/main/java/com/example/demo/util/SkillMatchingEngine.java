@@ -1,51 +1,28 @@
-package com.example.demo.util;
+package com.example.demo;
 
-import com.example.demo.model.SkillOffer;
-import com.example.demo.model.SkillRequest;
 import org.springframework.stereotype.Component;
-import java.util.List;
 
 @Component
 public class SkillMatchingEngine {
-
-    public SkillMatchingEngine() {}
-
-    /**
-     * Logical check to see if two users have a mutual interest.
-     * @param userAOffers Skills User A can provide
-     * @param userARequests Skills User A wants
-     * @param userBOffers Skills User B can provide
-     * @param userBRequests Skills User B wants
-     * @return boolean true if a cross-match exists
-     */
-    public boolean isMatch(List<SkillOffer> userAOffers, 
-                           List<SkillRequest> userARequests, 
-                           List<SkillOffer> userBOffers, 
-                           List<SkillRequest> userBRequests) {
+    
+    public double calculateMatchScore(SkillOffer offer, SkillRequest request) {
+        double score = 0.0;
         
-        boolean bHasWhatAWants = false;
-        boolean aHasWhatBWants = false;
-
-        // Check if User B offers any skill that User A requested
-        for (SkillRequest reqA : userARequests) {
-            for (SkillOffer offB : userBOffers) {
-                if (reqA.getSkill().getId().equals(offB.getSkill().getId())) {
-                    bHasWhatAWants = true;
-                    break;
-                }
-            }
+        // Basic skill name matching
+        if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
+            score += 50.0;
         }
-
-        // Check if User A offers any skill that User B requested
-        for (SkillRequest reqB : userBRequests) {
-            for (SkillOffer offA : userAOffers) {
-                if (reqB.getSkill().getId().equals(offA.getSkill().getId())) {
-                    aHasWhatBWants = true;
-                    break;
-                }
-            }
+        
+        // Experience level matching
+        if (offer.getExperienceLevel().equals(request.getRequiredLevel())) {
+            score += 30.0;
         }
-
-        return bHasWhatAWants && aHasWhatBWants;
+        
+        // Category matching
+        if (offer.getSkillCategory().getId().equals(request.getSkillCategory().getId())) {
+            score += 20.0;
+        }
+        
+        return Math.min(score, 100.0);
     }
 }

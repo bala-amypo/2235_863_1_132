@@ -1,43 +1,67 @@
-package com.example.demo.model;
+package com.example.demo;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "skill_matches")
 public class SkillMatch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    private UserProfile userA;
-
-    @ManyToOne
-    private UserProfile userB;
-
-    @ManyToOne
-    private SkillCategory skillOfferedByA;
-
-    @ManyToOne
-    private SkillCategory skillOfferedByB;
-
-    private LocalDateTime matchedAt = LocalDateTime.now();
-    private String status = "PENDING"; // Rule: Defaults to PENDING
-
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "offer_id", nullable = false)
+    private SkillOffer offer;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id", nullable = false)
+    private SkillRequest request;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "matched_by", nullable = false)
+    private User matchedBy;
+    
+    @Column(nullable = false)
+    private String matchStatus = "PENDING";
+    
+    @Column(nullable = false)
+    private Double matchScore = 0.0;
+    
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+    
     public SkillMatch() {}
-
+    
+    public SkillMatch(SkillOffer offer, SkillRequest request, User matchedBy) {
+        this.offer = offer;
+        this.request = request;
+        this.matchedBy = matchedBy;
+    }
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public UserProfile getUserA() { return userA; }
-    public void setUserA(UserProfile userA) { this.userA = userA; }
-    public UserProfile getUserB() { return userB; }
-    public void setUserB(UserProfile userB) { this.userB = userB; }
-    public SkillCategory getSkillOfferedByA() { return skillOfferedByA; }
-    public void setSkillOfferedByA(SkillCategory s) { this.skillOfferedByA = s; }
-    public SkillCategory getSkillOfferedByB() { return skillOfferedByB; }
-    public void setSkillOfferedByB(SkillCategory s) { this.skillOfferedByB = s; }
-    public LocalDateTime getMatchedAt() { return matchedAt; }
-    public void setMatchedAt(LocalDateTime matchedAt) { this.matchedAt = matchedAt; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    
+    public SkillOffer getOffer() { return offer; }
+    public void setOffer(SkillOffer offer) { this.offer = offer; }
+    
+    public SkillRequest getRequest() { return request; }
+    public void setRequest(SkillRequest request) { this.request = request; }
+    
+    public User getMatchedBy() { return matchedBy; }
+    public void setMatchedBy(User matchedBy) { this.matchedBy = matchedBy; }
+    
+    public String getMatchStatus() { return matchStatus; }
+    public void setMatchStatus(String matchStatus) { this.matchStatus = matchStatus; }
+    
+    public Double getMatchScore() { return matchScore; }
+    public void setMatchScore(Double matchScore) { this.matchScore = matchScore; }
+    
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

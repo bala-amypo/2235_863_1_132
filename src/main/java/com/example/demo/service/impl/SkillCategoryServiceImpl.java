@@ -1,39 +1,32 @@
-package com.example.demo.service.impl;
+package com.example.demo;
 
-import com.example.demo.model.SkillCategory;
-import com.example.demo.repository.SkillCategoryRepository;
-import com.example.demo.service.SkillCategoryService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SkillCategoryServiceImpl implements SkillCategoryService {
-    private final SkillCategoryRepository repository;
-
-    public SkillCategoryServiceImpl(SkillCategoryRepository repository) {
-        this.repository = repository;
+    private final SkillCategoryRepository skillCategoryRepository;
+    
+    public SkillCategoryServiceImpl(SkillCategoryRepository skillCategoryRepository) {
+        this.skillCategoryRepository = skillCategoryRepository;
     }
-
+    
     @Override
-    public SkillCategory createSkill(SkillCategory skill) {
-        return repository.save(skill);
+    public SkillCategory createCategory(SkillCategory category) {
+        if (category == null) {
+            throw new BadRequestException("Category not found");
+        }
+        return skillCategoryRepository.save(category);
     }
-
+    
     @Override
-    public SkillCategory getSkillById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Skill not found"));
+    public SkillCategory getCategory(Long id) {
+        return skillCategoryRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
     }
-
+    
     @Override
-    public List<SkillCategory> getAllSkills() {
-        return repository.findAll();
-    }
-
-    @Override
-    public void deactivateSkill(Long id) {
-        SkillCategory skill = getSkillById(id);
-        skill.setActive(false);
-        repository.save(skill);
+    public List<SkillCategory> getAllCategories() {
+        return skillCategoryRepository.findAll();
     }
 }
