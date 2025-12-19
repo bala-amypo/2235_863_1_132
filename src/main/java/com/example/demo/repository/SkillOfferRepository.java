@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SkillOfferRepository extends JpaRepository<SkillOffer, Long> {
-    List<SkillOffer> findByUser_IdAndActiveTrue(Long userId);
-    List<SkillOffer> findBySkill_IdAndActiveTrue(Long skillId);
+    List<SkillOffer> findByUserId(Long userId);
 }
