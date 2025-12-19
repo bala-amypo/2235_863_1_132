@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SkillRequestRepository extends JpaRepository<SkillRequest, Long> {
-    List<SkillRequest> findByUser_IdAndActiveTrue(Long userId);
-    List<SkillRequest> findBySkill_IdAndActiveTrue(Long skillId);
+    List<SkillRequest> findByUserId(Long userId); // Fix for SkillRequestServiceImpl error
 }
