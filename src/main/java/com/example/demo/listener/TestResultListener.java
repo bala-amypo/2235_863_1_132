@@ -1,29 +1,22 @@
-package com.example.demo.listener;
+package com.example.demo;
 
-import org.springframework.test.context.TestContext;
-import org.springframework.test.context.support.AbstractTestExecutionListener;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 
-public class TestResultListener extends AbstractTestExecutionListener {
-
-    public TestResultListener() {}
-
+public class TestResultListener implements ITestListener {
+    
     @Override
-    public void beforeTestClass(TestContext testContext) {
-        System.out.println("Starting Test Suite for: " + testContext.getTestClass().getName());
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test started: " + result.getMethod().getMethodName());
     }
-
+    
     @Override
-    public void afterTestMethod(TestContext testContext) {
-        if (testContext.getTestException() != null) {
-            System.err.println("TEST FAILED: " + testContext.getTestMethod().getName() 
-                + " - Reason: " + testContext.getTestException().getMessage());
-        } else {
-            System.out.println("TEST PASSED: " + testContext.getTestMethod().getName());
-        }
+    public void onTestSuccess(ITestResult result) {
+        System.out.println("Test passed: " + result.getMethod().getMethodName());
     }
-
+    
     @Override
-    public void afterTestClass(TestContext testContext) {
-        System.out.println("Finished Test Suite for: " + testContext.getTestClass().getName());
+    public void onTestFailure(ITestResult result) {
+        System.out.println("Test failed: " + result.getMethod().getMethodName());
     }
 }

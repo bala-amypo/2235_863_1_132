@@ -1,48 +1,55 @@
-package com.example.demo.service.impl;
+package com.example.demo;
 
-import com.example.demo.model.SkillOffer;
-import com.example.demo.repository.SkillOfferRepository;
-import com.example.demo.service.SkillOfferService;
-import com.example.demo.exception.ResourceNotFoundException; // Ensure this exists or use RuntimeException
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SkillOfferServiceImpl implements SkillOfferService {
-
-    private final SkillOfferRepository repository;
-
-    public SkillOfferServiceImpl(SkillOfferRepository repository) {
-        this.repository = repository;
+    private final SkillOfferRepository skillOfferRepository;
+    private final SkillCategoryRepository skillCategoryRepository;
+    
+    public SkillOfferServiceImpl(SkillOfferRepository skillOfferRepository, SkillCategoryRepository skillCategoryRepository) {
+        this.skillOfferRepository = skillOfferRepository;
+        this.skillCategoryRepository = skillCategoryRepository;
     }
-
+    
     @Override
     public SkillOffer createOffer(SkillOffer offer) {
-        return repository.save(offer);
+        if (offer == null) {
+            throw new BadRequestException("Offer not found");
+        }
+        if (offer.getSkillName() == null || offer.getSkillName().length() < 5) {
+            throw new BadRequestException("Skill name must be at least 5 characters");
+        }
+        if (offer.getDescription() != null && offer.getDescription().length() < 10) {
+            throw new BadRequestException("Description must be at least 10 characters");
+        }
+        return skillOfferRepository.save(offer);
     }
-
+    
     @Override
-    public List<SkillOffer> getOffersByUserId(Long userId) {
-        // This matches the findByUserId method we added to your Repository
-        return repository.findByUserId(userId);
+    public SkillOffer getOffer(Long id) {
+        return skillOfferRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Offer not found"));
     }
-
+    
+    @Override
+    public List<SkillOffer> getOffersByUser(Long userId) {
+        return skillOfferRepository.findByUserId(userId);
+    }
+    
+    @Override
+    public List<SkillOffer> getOffersByCategory(Long categoryId) {
+        return skillOfferRepository.findBySkillCategoryId(categoryId);
+    }
+    
+    @Override
+    public List<SkillOffer> getAvailableOffers() {
+        return skillOfferRepository.findByAvailability("AVAILABLE");
+    }
+    
     @Override
     public List<SkillOffer> getAllOffers() {
-        return repository.findAll();
-    }
-
-    @Override
-    public void deactivateOffer(Long id) {
-        // This fixes the "is not abstract and does not override" error
-        SkillOffer offer = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Skill Offer not found with id: " + id));
-        
-        // If your SkillOffer model has an 'active' boolean field:
-        // offer.setActive(false);
-        // repository.save(offer);
-        
-        // OR if you just want to delete it:
-        repository.delete(offer);
+        return skillOfferRepository.findAll();
     }
 }
