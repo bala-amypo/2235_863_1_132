@@ -1,9 +1,11 @@
-package com.example.demo.repository;
+package com.example.demo;
 
-import com.example.demo.model.BarterTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
+import java.util.List;
 
+@Repository
 public interface BarterTransactionRepository extends JpaRepository<BarterTransaction, Long> {
-    Optional<BarterTransaction> findByMatchRecord_Id(Long matchId);
+    List<BarterTransaction> findByMatchId(Long matchId);
+    List<BarterTransaction> findByStatus(String status);
 }
