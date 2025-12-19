@@ -1,43 +1,34 @@
-package com.example.demo.controller;
+package com.example.demo;
 
-import com.example.demo.model.UserProfile;
-import com.example.demo.service.UserProfileService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@Tag(name = "UserProfileController")
+@Tag(name = "User")
 public class UserController {
-    private final UserProfileService service;
-
-    public UserController(UserProfileService service) {
-        this.service = service;
+    
+    private final UserService userService;
+    
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-
-    @PostMapping("/")
-    public UserProfile create(@RequestBody UserProfile user) {
-        return service.createUser(user);
-    }
-
-    @PutMapping("/{id}")
-    public UserProfile update(@PathVariable Long id, @RequestBody UserProfile user) {
-        return service.updateUser(id, user);
-    }
-
+    
     @GetMapping("/{id}")
-    public UserProfile getById(@PathVariable Long id) {
-        return service.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        User user = userService.getById(id);
+        return ResponseEntity.ok(user);
     }
-
+    
     @GetMapping("/")
-    public List<UserProfile> getAll() {
-        return service.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
-
-    @PutMapping("/{id}/deactivate")
-    public void deactivate(@PathVariable Long id) {
-        service.deactivateUser(id);
+    
+    @PutMapping("/{id}/rating")
+    public ResponseEntity<User> updateRating(@PathVariable Long id, @RequestParam double rating) {
+        User user = userService.updateRating(id, rating);
+        return ResponseEntity.ok(user);
     }
 }

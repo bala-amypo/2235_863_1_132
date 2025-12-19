@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo;
 
-import com.example.demo.model.BarterTransaction;
 import java.util.List;
 
 public interface TransactionService {
-    BarterTransaction createTransaction(BarterTransaction transaction);
-    BarterTransaction getTransactionByMatchId(Long matchId);
+    BarterTransaction createTransaction(Long matchId);
+    BarterTransaction getTransaction(Long id);
     List<BarterTransaction> getAllTransactions();
+    BarterTransaction completeTransaction(Long transactionId, Integer offererRating, Integer requesterRating);
+    List<BarterTransaction> getTransactionsByStatus(String status);
 }
