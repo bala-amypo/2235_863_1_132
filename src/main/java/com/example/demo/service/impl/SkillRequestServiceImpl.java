@@ -1,18 +1,39 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.model.SkillRequest;
+import com.example.demo.repository.SkillRequestRepository;
+import com.example.demo.service.SkillRequestService;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
 @Service
 public class SkillRequestServiceImpl implements SkillRequestService {
-    private final SkillOfferRepository repository;
 
-    public SkillRequestServiceImpl(SkillOfferRepository repository) {
-        this.repository = repository;
+    private final SkillRequestRepository skillRequestRepository;
+
+    // Constructor Injection
+    public SkillRequestServiceImpl(SkillRequestRepository skillRequestRepository) {
+        this.skillRequestRepository = skillRequestRepository;
     }
 
     @Override
-    public SkillOffer createOffer(SkillOffer offer) {
-        return repository.save(offer);
+    public SkillRequest createRequest(SkillRequest request) {
+        return skillRequestRepository.save(request);
     }
 
     @Override
-    public List<SkillOffer> getOffersByUser(Long userId) {
-        return repository.findByUser_IdAndActiveTrue(userId);
+    public List<SkillRequest> getRequestsByUserId(Long userId) {
+        // Ensure your Repository has a method: List<SkillRequest> findByUserId(Long userId);
+        return skillRequestRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<SkillRequest> getAllRequests() {
+        return skillRequestRepository.findAll();
+    }
+
+    @Override
+    public void deleteRequest(Long id) {
+        skillRequestRepository.deleteById(id);
     }
 }
