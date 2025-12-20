@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.barter.service;
 
+import com.example.barter.model.SkillMatch;
 import java.util.List;
 
 public interface MatchService {

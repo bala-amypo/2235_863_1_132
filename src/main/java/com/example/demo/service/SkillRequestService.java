@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.barter.service;
 
+import com.example.barter.model.SkillRequest;
 import java.util.List;
 
 public interface SkillRequestService {
@@ -8,5 +9,4 @@ public interface SkillRequestService {
     List<SkillRequest> getRequestsByUser(Long userId);
     List<SkillRequest> getRequestsByCategory(Long categoryId);
     List<SkillRequest> getOpenRequests();
-    List<SkillRequest> getAllRequests();
 }
