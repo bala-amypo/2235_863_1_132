@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.barter.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public class BarterTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "match_id", nullable = false)
     private SkillMatch match;
     
@@ -41,6 +41,7 @@ public class BarterTransaction {
         createdAt = LocalDateTime.now();
     }
     
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     

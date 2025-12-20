@@ -1,16 +1,20 @@
-package com.example.demo;
+package com.example.barter.listener;
 
 public class TestResultListener {
     
-    public void logTestStart(String testName) {
-        System.out.println("Test started: " + testName);
+    public void onTestStart(Object result) {
+        System.out.println("Test Started");
     }
     
-    public void logTestSuccess(String testName) {
-        System.out.println("Test passed: " + testName);
+    public void onTestSuccess(Object result) {
+        System.out.println("Test Passed");
     }
     
-    public void logTestFailure(String testName) {
-        System.out.println("Test failed: " + testName);
+    public void onTestFailure(Object result) {
+        System.out.println("Test Failed");
+    }
+    
+    public void onTestSkipped(Object result) {
+        System.out.println("Test Skipped");
     }
 }
