@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.barter.util;
 
+import com.example.barter.model.SkillOffer;
+import com.example.barter.model.SkillRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,7 +10,7 @@ public class SkillMatchingEngine {
     public double calculateMatchScore(SkillOffer offer, SkillRequest request) {
         double score = 0.0;
         
-        // Basic skill name matching
+        // Skill name similarity
         if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
             score += 50.0;
         }
@@ -18,8 +20,8 @@ public class SkillMatchingEngine {
             score += 30.0;
         }
         
-        // Category matching
-        if (offer.getSkillCategory().getId().equals(request.getSkillCategory().getId())) {
+        // User rating bonus
+        if (offer.getUser().getRating() >= 4.0) {
             score += 20.0;
         }
         
