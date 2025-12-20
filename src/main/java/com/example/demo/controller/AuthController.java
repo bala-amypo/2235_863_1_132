@@ -1,5 +1,11 @@
-package com.example.demo;
+package com.example.barter.controller;
 
+import com.example.barter.dto.AuthRequest;
+import com.example.barter.dto.AuthResponse;
+import com.example.barter.model.User;
+import com.example.barter.security.JwtUtil;
+import com.example.barter.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Auth")
+@Tag(name = "Auth", description = "Authentication endpoints")
 public class AuthController {
     
     private final UserService userService;
@@ -26,7 +32,9 @@ public class AuthController {
         User savedUser = userService.register(user);
         
         Map<String, Object> claims = new HashMap<>();
+        claims.put("email", savedUser.getEmail());
         claims.put("role", savedUser.getRole());
+        
         String token = jwtUtil.generateToken(claims, savedUser.getEmail());
         
         AuthResponse response = new AuthResponse(token, savedUser.getId(), savedUser.getEmail(), savedUser.getRole());
@@ -37,15 +45,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         User user = userService.findByEmail(request.getEmail());
         
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadRequestException("Invalid credentials");
+        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("email", user.getEmail());
+            claims.put("role", user.getRole());
+            
+            String token = jwtUtil.generateToken(claims, user.getEmail());
+            
+            AuthResponse response = new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+            return ResponseEntity.ok(response);
         }
         
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRole());
-        String token = jwtUtil.generateToken(claims, user.getEmail());
-        
-        AuthResponse response = new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(401).build();
     }
 }

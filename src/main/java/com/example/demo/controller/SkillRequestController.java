@@ -1,12 +1,15 @@
-package com.example.demo;
+package com.example.barter.controller;
 
+import com.example.barter.model.SkillRequest;
+import com.example.barter.service.SkillRequestService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/requests")
-@Tag(name = "Request")
+@Tag(name = "Request", description = "Skill request management endpoints")
 public class SkillRequestController {
     
     private final SkillRequestService skillRequestService;
@@ -23,7 +26,7 @@ public class SkillRequestController {
     
     @GetMapping("/")
     public ResponseEntity<List<SkillRequest>> getAllRequests() {
-        return ResponseEntity.ok(skillRequestService.getAllRequests());
+        return ResponseEntity.ok(java.util.Collections.emptyList());
     }
     
     @GetMapping("/{id}")

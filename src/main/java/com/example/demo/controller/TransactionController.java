@@ -1,12 +1,15 @@
-package com.example.demo;
+package com.example.barter.controller;
 
+import com.example.barter.model.BarterTransaction;
+import com.example.barter.service.TransactionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/transactions")
-@Tag(name = "Transaction")
+@Tag(name = "Transaction", description = "Barter transaction management endpoints")
 public class TransactionController {
     
     private final TransactionService transactionService;
@@ -34,9 +37,7 @@ public class TransactionController {
     }
     
     @PutMapping("/{id}/complete")
-    public ResponseEntity<BarterTransaction> completeTransaction(@PathVariable Long id, 
-                                                               @RequestParam(required = false) Integer offererRating,
-                                                               @RequestParam(required = false) Integer requesterRating) {
+    public ResponseEntity<BarterTransaction> completeTransaction(@PathVariable Long id, @RequestParam Integer offererRating, @RequestParam Integer requesterRating) {
         BarterTransaction transaction = transactionService.completeTransaction(id, offererRating, requesterRating);
         return ResponseEntity.ok(transaction);
     }
