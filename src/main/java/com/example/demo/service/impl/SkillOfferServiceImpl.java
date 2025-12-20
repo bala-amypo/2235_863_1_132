@@ -1,10 +1,17 @@
-package com.example.demo;
+package com.example.barter.service.impl;
 
+import com.example.barter.exception.BadRequestException;
+import com.example.barter.exception.ResourceNotFoundException;
+import com.example.barter.model.SkillOffer;
+import com.example.barter.repository.SkillOfferRepository;
+import com.example.barter.repository.SkillCategoryRepository;
+import com.example.barter.service.SkillOfferService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SkillOfferServiceImpl implements SkillOfferService {
+    
     private final SkillOfferRepository skillOfferRepository;
     private final SkillCategoryRepository skillCategoryRepository;
     
@@ -15,9 +22,6 @@ public class SkillOfferServiceImpl implements SkillOfferService {
     
     @Override
     public SkillOffer createOffer(SkillOffer offer) {
-        if (offer == null) {
-            throw new BadRequestException("Offer not found");
-        }
         if (offer.getSkillName() == null || offer.getSkillName().length() < 5) {
             throw new BadRequestException("Skill name must be at least 5 characters");
         }
@@ -46,10 +50,5 @@ public class SkillOfferServiceImpl implements SkillOfferService {
     @Override
     public List<SkillOffer> getAvailableOffers() {
         return skillOfferRepository.findByAvailability("AVAILABLE");
-    }
-    
-    @Override
-    public List<SkillOffer> getAllOffers() {
-        return skillOfferRepository.findAll();
     }
 }

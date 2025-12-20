@@ -1,10 +1,22 @@
-package com.example.demo;
+package com.example.barter.service.impl;
 
+import com.example.barter.exception.ResourceNotFoundException;
+import com.example.barter.model.SkillMatch;
+import com.example.barter.model.SkillOffer;
+import com.example.barter.model.SkillRequest;
+import com.example.barter.model.User;
+import com.example.barter.repository.SkillMatchRepository;
+import com.example.barter.repository.SkillOfferRepository;
+import com.example.barter.repository.SkillRequestRepository;
+import com.example.barter.repository.UserRepository;
+import com.example.barter.service.MatchService;
+import com.example.barter.util.SkillMatchingEngine;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class MatchServiceImpl implements MatchService {
+    
     private final SkillMatchRepository skillMatchRepository;
     private final SkillOfferRepository skillOfferRepository;
     private final SkillRequestRepository skillRequestRepository;
@@ -26,15 +38,11 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public SkillMatch createMatch(Long offerId, Long requestId, Long adminUserId) {
         SkillOffer offer = skillOfferRepository.findById(offerId)
-            .orElseThrow(() -> new BadRequestException("Offer not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Offer not found"));
         SkillRequest request = skillRequestRepository.findById(requestId)
-            .orElseThrow(() -> new BadRequestException("Request not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
         User admin = userRepository.findById(adminUserId)
-            .orElseThrow(() -> new BadRequestException("User not found"));
-            
-        if (offer.getUser().getId().equals(request.getUser().getId())) {
-            throw new BadRequestException("Match not found");
-        }
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         
         SkillMatch match = new SkillMatch(offer, request, admin);
         double score = skillMatchingEngine.calculateMatchScore(offer, request);

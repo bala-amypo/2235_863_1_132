@@ -1,10 +1,15 @@
-package com.example.demo;
+package com.example.barter.service.impl;
 
+import com.example.barter.exception.ResourceNotFoundException;
+import com.example.barter.model.SkillCategory;
+import com.example.barter.repository.SkillCategoryRepository;
+import com.example.barter.service.SkillCategoryService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SkillCategoryServiceImpl implements SkillCategoryService {
+    
     private final SkillCategoryRepository skillCategoryRepository;
     
     public SkillCategoryServiceImpl(SkillCategoryRepository skillCategoryRepository) {
@@ -13,9 +18,6 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     
     @Override
     public SkillCategory createCategory(SkillCategory category) {
-        if (category == null) {
-            throw new BadRequestException("Category not found");
-        }
         return skillCategoryRepository.save(category);
     }
     
