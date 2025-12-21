@@ -1,4 +1,4 @@
-package com.example.barter.security;
+/*package com.example.barter.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -59,3 +59,4 @@ public class JwtUtil {
         return (String) getAllClaims(token).get("role");
     }
 }
+*/

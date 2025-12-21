@@ -1,4 +1,4 @@
-package com.example.barter.dto;
+/*package com.example.barter.dto;
 
 import java.time.LocalDateTime;
 
@@ -39,3 +39,4 @@ public class TransactionDto {
     public Integer getRequesterRating() { return requesterRating; }
     public void setRequesterRating(Integer requesterRating) { this.requesterRating = requesterRating; }
 }
+*/

@@ -1,4 +1,4 @@
-package com.example.barter.dto;
+/*package com.example.barter.dto;
 
 public class MatchDto {
     private Long matchId;
@@ -37,3 +37,4 @@ public class MatchDto {
     public Double getMatchScore() { return matchScore; }
     public void setMatchScore(Double matchScore) { this.matchScore = matchScore; }
 }
+*/

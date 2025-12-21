@@ -1,4 +1,4 @@
-package com.example.barter.dto;
+/*package com.example.barter.dto;
 
 public class AuthResponse {
     private String token;
@@ -27,3 +27,4 @@ public class AuthResponse {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
+*/

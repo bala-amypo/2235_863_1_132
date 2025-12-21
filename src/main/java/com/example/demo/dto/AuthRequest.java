@@ -1,4 +1,4 @@
-package com.example.barter.dto;
+/*package com.example.barter.dto;
 
 public class AuthRequest {
     private String email;
@@ -17,3 +17,4 @@ public class AuthRequest {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 }
+*/
