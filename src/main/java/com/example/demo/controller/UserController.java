@@ -1,16 +1,10 @@
-package com.example.barter.controller;
+package com.example.demo;
 
-import com.example.barter.model.User;
-import com.example.barter.service.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@Tag(name = "User", description = "User management endpoints")
 public class UserController {
     
     private final UserService userService;
@@ -21,19 +15,11 @@ public class UserController {
     
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = userService.getById(id);
-        return ResponseEntity.ok(user);
-    }
-    
-    @GetMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(java.util.Collections.emptyList());
+        return ResponseEntity.ok(userService.getById(id));
     }
     
     @PutMapping("/{id}/rating")
     public ResponseEntity<User> updateRating(@PathVariable Long id, @RequestParam double rating) {
-        User user = userService.updateRating(id, rating);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.updateRating(id, rating));
     }
 }

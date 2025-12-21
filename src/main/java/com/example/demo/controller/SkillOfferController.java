@@ -1,15 +1,11 @@
-package com.example.barter.controller;
+package com.example.demo;
 
-import com.example.barter.model.SkillOffer;
-import com.example.barter.service.SkillOfferService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/offers")
-@Tag(name = "Offer", description = "Skill offer management endpoints")
 public class SkillOfferController {
     
     private final SkillOfferService skillOfferService;
@@ -18,38 +14,33 @@ public class SkillOfferController {
         this.skillOfferService = skillOfferService;
     }
     
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<SkillOffer> createOffer(@RequestBody SkillOffer offer) {
-        SkillOffer created = skillOfferService.createOffer(offer);
-        return ResponseEntity.ok(created);
+        return ResponseEntity.ok(skillOfferService.createOffer(offer));
     }
     
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<SkillOffer>> getAllOffers() {
-        return ResponseEntity.ok(java.util.Collections.emptyList());
+        return ResponseEntity.ok(skillOfferService.getAvailableOffers());
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<SkillOffer> getOffer(@PathVariable Long id) {
-        SkillOffer offer = skillOfferService.getOffer(id);
-        return ResponseEntity.ok(offer);
+        return ResponseEntity.ok(skillOfferService.getOffer(id));
     }
     
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<SkillOffer>> getOffersByUser(@PathVariable Long userId) {
-        List<SkillOffer> offers = skillOfferService.getOffersByUser(userId);
-        return ResponseEntity.ok(offers);
+        return ResponseEntity.ok(skillOfferService.getOffersByUser(userId));
     }
     
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<SkillOffer>> getOffersByCategory(@PathVariable Long categoryId) {
-        List<SkillOffer> offers = skillOfferService.getOffersByCategory(categoryId);
-        return ResponseEntity.ok(offers);
+        return ResponseEntity.ok(skillOfferService.getOffersByCategory(categoryId));
     }
     
     @GetMapping("/available")
     public ResponseEntity<List<SkillOffer>> getAvailableOffers() {
-        List<SkillOffer> offers = skillOfferService.getAvailableOffers();
-        return ResponseEntity.ok(offers);
+        return ResponseEntity.ok(skillOfferService.getAvailableOffers());
     }
 }

@@ -1,16 +1,11 @@
-package com.example.barter.controller;
+package com.example.demo;
 
-import com.example.barter.model.SkillCategory;
-import com.example.barter.service.SkillCategoryService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
-@Tag(name = "Category", description = "Skill category management endpoints")
 public class SkillCategoryController {
     
     private final SkillCategoryService skillCategoryService;
@@ -19,22 +14,18 @@ public class SkillCategoryController {
         this.skillCategoryService = skillCategoryService;
     }
     
-    @PostMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping
     public ResponseEntity<SkillCategory> createCategory(@RequestBody SkillCategory category) {
-        SkillCategory created = skillCategoryService.createCategory(category);
-        return ResponseEntity.ok(created);
+        return ResponseEntity.ok(skillCategoryService.createCategory(category));
     }
     
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<SkillCategory>> getAllCategories() {
-        List<SkillCategory> categories = skillCategoryService.getAllCategories();
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(skillCategoryService.getAllCategories());
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<SkillCategory> getCategory(@PathVariable Long id) {
-        SkillCategory category = skillCategoryService.getCategory(id);
-        return ResponseEntity.ok(category);
+        return ResponseEntity.ok(skillCategoryService.getCategory(id));
     }
 }
