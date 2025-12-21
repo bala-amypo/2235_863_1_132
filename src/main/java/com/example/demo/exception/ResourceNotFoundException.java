@@ -1,4 +1,4 @@
-package com.example.barter.exception;
+package com.example.demo;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

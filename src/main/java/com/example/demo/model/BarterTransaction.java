@@ -1,4 +1,4 @@
-package com.example.barter.model;
+package com.example.demo;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -18,13 +18,9 @@ public class BarterTransaction {
     private String status = "INITIATED";
     
     private String offererFeedback;
-    
     private String requesterFeedback;
-    
     private Integer offererRating;
-    
     private Integer requesterRating;
-    
     private LocalDateTime completedAt;
     
     @Column(nullable = false)
@@ -41,7 +37,6 @@ public class BarterTransaction {
         createdAt = LocalDateTime.now();
     }
     
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     

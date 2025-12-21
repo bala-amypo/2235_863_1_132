@@ -1,4 +1,4 @@
-package com.example.barter.model;
+package com.example.demo;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -43,7 +43,6 @@ public class User {
         createdAt = LocalDateTime.now();
     }
     
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
