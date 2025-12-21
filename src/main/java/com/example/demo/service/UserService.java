@@ -1,6 +1,4 @@
-package com.example.barter.service;
-
-import com.example.barter.model.User;
+package com.example.demo;
 
 public interface UserService {
     User register(User user);

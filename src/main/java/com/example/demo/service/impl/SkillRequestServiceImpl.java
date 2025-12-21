@@ -1,11 +1,5 @@
-package com.example.barter.service.impl;
+package com.example.demo;
 
-import com.example.barter.exception.BadRequestException;
-import com.example.barter.exception.ResourceNotFoundException;
-import com.example.barter.model.SkillRequest;
-import com.example.barter.repository.SkillRequestRepository;
-import com.example.barter.repository.SkillCategoryRepository;
-import com.example.barter.service.SkillRequestService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,7 +16,7 @@ public class SkillRequestServiceImpl implements SkillRequestService {
     
     @Override
     public SkillRequest createRequest(SkillRequest request) {
-        if (request.getSkillName() == null || request.getSkillName().length() < 5) {
+        if (request.getSkillName().length() < 5) {
             throw new BadRequestException("Skill name must be at least 5 characters");
         }
         return skillRequestRepository.save(request);

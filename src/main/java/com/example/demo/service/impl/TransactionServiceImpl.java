@@ -1,11 +1,5 @@
-package com.example.barter.service.impl;
+package com.example.demo;
 
-import com.example.barter.exception.ResourceNotFoundException;
-import com.example.barter.model.BarterTransaction;
-import com.example.barter.model.SkillMatch;
-import com.example.barter.repository.BarterTransactionRepository;
-import com.example.barter.repository.SkillMatchRepository;
-import com.example.barter.service.TransactionService;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +10,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final BarterTransactionRepository barterTransactionRepository;
     private final SkillMatchRepository skillMatchRepository;
     
-    public TransactionServiceImpl(BarterTransactionRepository barterTransactionRepository, 
+    public TransactionServiceImpl(BarterTransactionRepository barterTransactionRepository,
                                  SkillMatchRepository skillMatchRepository) {
         this.barterTransactionRepository = barterTransactionRepository;
         this.skillMatchRepository = skillMatchRepository;

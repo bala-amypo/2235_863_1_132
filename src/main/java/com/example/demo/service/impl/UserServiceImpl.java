@@ -1,10 +1,5 @@
-package com.example.barter.service.impl;
+package com.example.demo;
 
-import com.example.barter.exception.BadRequestException;
-import com.example.barter.exception.ResourceNotFoundException;
-import com.example.barter.model.User;
-import com.example.barter.repository.UserRepository;
-import com.example.barter.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
