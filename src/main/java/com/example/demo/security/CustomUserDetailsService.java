@@ -1,4 +1,4 @@
-package com.example.barter.security;
+/*package com.example.barter.security;
 
 import com.example.barter.model.User;
 import com.example.barter.repository.UserRepository;
@@ -30,3 +30,4 @@ public class CustomUserDetailsService implements UserDetailsService {
             .build();
     }
 }
+*/

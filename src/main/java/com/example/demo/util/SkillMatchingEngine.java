@@ -1,4 +1,4 @@
-package com.example.barter.util;
+/*package com.example.barter.util;
 
 import com.example.barter.model.SkillOffer;
 import com.example.barter.model.SkillRequest;
@@ -28,3 +28,4 @@ public class SkillMatchingEngine {
         return Math.min(score, 100.0);
     }
 }
+*/
