@@ -1,16 +1,5 @@
-package com.example.barter.service.impl;
+package com.example.demo;
 
-import com.example.barter.exception.ResourceNotFoundException;
-import com.example.barter.model.SkillMatch;
-import com.example.barter.model.SkillOffer;
-import com.example.barter.model.SkillRequest;
-import com.example.barter.model.User;
-import com.example.barter.repository.SkillMatchRepository;
-import com.example.barter.repository.SkillOfferRepository;
-import com.example.barter.repository.SkillRequestRepository;
-import com.example.barter.repository.UserRepository;
-import com.example.barter.service.MatchService;
-import com.example.barter.util.SkillMatchingEngine;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -21,18 +10,15 @@ public class MatchServiceImpl implements MatchService {
     private final SkillOfferRepository skillOfferRepository;
     private final SkillRequestRepository skillRequestRepository;
     private final UserRepository userRepository;
-    private final SkillMatchingEngine skillMatchingEngine;
     
     public MatchServiceImpl(SkillMatchRepository skillMatchRepository, 
                            SkillOfferRepository skillOfferRepository,
                            SkillRequestRepository skillRequestRepository,
-                           UserRepository userRepository,
-                           SkillMatchingEngine skillMatchingEngine) {
+                           UserRepository userRepository) {
         this.skillMatchRepository = skillMatchRepository;
         this.skillOfferRepository = skillOfferRepository;
         this.skillRequestRepository = skillRequestRepository;
         this.userRepository = userRepository;
-        this.skillMatchingEngine = skillMatchingEngine;
     }
     
     @Override
@@ -45,9 +31,6 @@ public class MatchServiceImpl implements MatchService {
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         
         SkillMatch match = new SkillMatch(offer, request, admin);
-        double score = skillMatchingEngine.calculateMatchScore(offer, request);
-        match.setMatchScore(score);
-        
         return skillMatchRepository.save(match);
     }
     
