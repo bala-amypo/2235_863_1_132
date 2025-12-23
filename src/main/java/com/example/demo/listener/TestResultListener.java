@@ -1,20 +1,38 @@
 package com.example.barter.listener;
 
-public class TestResultListener {
-    
-    public void onTestStart(Object result) {
-        System.out.println("Test Started");
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class TestResultListener implements ITestListener {
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("TEST STARTED: " + result.getName());
     }
-    
-    public void onTestSuccess(Object result) {
-        System.out.println("Test Passed");
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        System.out.println("TEST PASSED: " + result.getName());
     }
-    
-    public void onTestFailure(Object result) {
-        System.out.println("Test Failed");
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        System.out.println("TEST FAILED: " + result.getName());
     }
-    
-    public void onTestSkipped(Object result) {
-        System.out.println("Test Skipped");
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        System.out.println("TEST SKIPPED: " + result.getName());
+    }
+
+    @Override
+    public void onStart(ITestContext context) {
+        System.out.println("TEST SUITE STARTED: " + context.getName());
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
+        System.out.println("TEST SUITE FINISHED: " + context.getName());
     }
 }
