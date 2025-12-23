@@ -1,4 +1,4 @@
-/*package com.example.demo;
+package com.example.demo;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,4 +16,3 @@ public class HealthServlet extends HttpServlet {
         response.getWriter().write("{\"status\":\"UP\"}");
     }
 }
-*/

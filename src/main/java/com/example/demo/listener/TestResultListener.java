@@ -1,4 +1,4 @@
-/*package com.example.barter.listener;
+package com.example.barter.listener;
 
 public class TestResultListener {
     
@@ -18,4 +18,3 @@ public class TestResultListener {
         System.out.println("Test Skipped");
     }
 }
-*/
