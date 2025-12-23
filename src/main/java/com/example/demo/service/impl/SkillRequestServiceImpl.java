@@ -1,45 +1,40 @@
-package com.example.demo;
+package com.example.barter.service.impl;
 
+import com.example.barter.model.SkillRequest;
+import com.example.barter.repository.SkillRequestRepository;
+import com.example.barter.service.SkillRequestService;
+import com.example.barter.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class SkillRequestServiceImpl implements SkillRequestService {
-    
-    private final SkillRequestRepository skillRequestRepository;
-    private final SkillCategoryRepository skillCategoryRepository;
-    
-    public SkillRequestServiceImpl(SkillRequestRepository skillRequestRepository, SkillCategoryRepository skillCategoryRepository) {
-        this.skillRequestRepository = skillRequestRepository;
-        this.skillCategoryRepository = skillCategoryRepository;
+
+    private final SkillRequestRepository requestRepository;
+
+    public SkillRequestServiceImpl(SkillRequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
     }
-    
+
     @Override
     public SkillRequest createRequest(SkillRequest request) {
-        if (request.getSkillName().length() < 5) {
-            throw new BadRequestException("Skill name must be at least 5 characters");
-        }
-        return skillRequestRepository.save(request);
+        return requestRepository.save(request);
     }
-    
+
     @Override
-    public SkillRequest getRequest(Long id) {
-        return skillRequestRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
+    public SkillRequest getRequestById(Long requestId) {
+        return requestRepository.findById(requestId)
+                .orElseThrow(() -> new ResourceNotFoundException("Skill request not found"));
     }
-    
+
     @Override
     public List<SkillRequest> getRequestsByUser(Long userId) {
-        return skillRequestRepository.findByUserId(userId);
+        return requestRepository.findByUserId(userId);
     }
-    
-    @Override
-    public List<SkillRequest> getRequestsByCategory(Long categoryId) {
-        return skillRequestRepository.findBySkillCategoryId(categoryId);
-    }
-    
+
     @Override
     public List<SkillRequest> getOpenRequests() {
-        return skillRequestRepository.findByStatus("OPEN");
+        return requestRepository.findByStatus("OPEN");
     }
 }
