@@ -1,9 +1,9 @@
-package com.example.barter.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.barter.model.*;
-import com.example.barter.repository.*;
-import com.example.barter.service.MatchService;
-import com.example.barter.exception.ResourceNotFoundException;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.MatchService;
+import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

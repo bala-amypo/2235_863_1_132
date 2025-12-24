@@ -1,7 +1,7 @@
-package com.example.barter.controller;
+package com.example.demo.controller;
 
-import com.example.barter.model.SkillMatch;
-import com.example.barter.service.MatchService;
+import com.example.demo.model.SkillMatch;
+import com.example.demo.service.MatchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

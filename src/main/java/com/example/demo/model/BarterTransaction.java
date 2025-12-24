@@ -1,11 +1,11 @@
-package com.example.barter.model;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "barter_transactions")
-public class BarterTransaction {
+@Table(name = "demo_transactions")
+public class demoTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class BarterTransaction {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public BarterTransaction() {}
+    public demoTransaction() {}
 
     @PrePersist
     protected void onCreate() {

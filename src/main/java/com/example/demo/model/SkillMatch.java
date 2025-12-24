@@ -1,4 +1,4 @@
-package com.example.barter.model;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -34,7 +34,7 @@ public class SkillMatch {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "match")
-    private List<BarterTransaction> transactions;
+    private List<demoTransaction> transactions;
 
     public SkillMatch() {}
 

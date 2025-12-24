@@ -1,4 +1,4 @@
-package com.example.barter.security;
+package com.example.demo.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "skillbarter_secret_key_12345";
+    private static final String SECRET_KEY = "skilldemo_secret_key_12345";
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 hours
 
     public String generateToken(String email) {

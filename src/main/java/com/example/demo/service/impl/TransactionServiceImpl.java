@@ -1,11 +1,11 @@
-package com.example.barter.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.barter.model.BarterTransaction;
-import com.example.barter.model.SkillMatch;
-import com.example.barter.repository.BarterTransactionRepository;
-import com.example.barter.repository.SkillMatchRepository;
-import com.example.barter.service.TransactionService;
-import com.example.barter.exception.ResourceNotFoundException;
+import com.example.demo.model.demoTransaction;
+import com.example.demo.model.SkillMatch;
+import com.example.demo.repository.demoTransactionRepository;
+import com.example.demo.repository.SkillMatchRepository;
+import com.example.demo.service.TransactionService;
+import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,22 +14,22 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final BarterTransactionRepository transactionRepository;
+    private final demoTransactionRepository transactionRepository;
     private final SkillMatchRepository matchRepository;
 
-    public TransactionServiceImpl(BarterTransactionRepository transactionRepository,
+    public TransactionServiceImpl(demoTransactionRepository transactionRepository,
                                   SkillMatchRepository matchRepository) {
         this.transactionRepository = transactionRepository;
         this.matchRepository = matchRepository;
     }
 
     @Override
-    public BarterTransaction createTransaction(Long matchId) {
+    public demoTransaction createTransaction(Long matchId) {
 
         SkillMatch match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new ResourceNotFoundException("Match not found"));
 
-        BarterTransaction transaction = new BarterTransaction();
+        demoTransaction transaction = new demoTransaction();
         transaction.setMatch(match);
         transaction.setStatus("IN_PROGRESS");
 
@@ -37,11 +37,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public BarterTransaction completeTransaction(Long transactionId,
+    public demoTransaction completeTransaction(Long transactionId,
                                                  Integer offererRating,
                                                  Integer requesterRating) {
 
-        BarterTransaction transaction = transactionRepository.findById(transactionId)
+        demoTransaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
 
         transaction.setStatus("COMPLETED");
@@ -53,13 +53,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public BarterTransaction getTransactionById(Long transactionId) {
+    public demoTransaction getTransactionById(Long transactionId) {
         return transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
     }
 
     @Override
-    public List<BarterTransaction> getTransactionsByStatus(String status) {
+    public List<demoTransaction> getTransactionsByStatus(String status) {
         return transactionRepository.findByStatus(status);
     }
 }
