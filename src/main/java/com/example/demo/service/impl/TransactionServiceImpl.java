@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.demoTransaction;
 import com.example.demo.model.SkillMatch;
-import com.example.demo.repository.demoTransactionRepository;
+import com.example.demo.repository.BarterTransactionRepository;
 import com.example.demo.repository.SkillMatchRepository;
 import com.example.demo.service.TransactionService;
 import com.example.demo.exception.ResourceNotFoundException;
@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final demoTransactionRepository transactionRepository;
+    private final BarterTransactionRepository transactionRepository;
     private final SkillMatchRepository matchRepository;
 
-    public TransactionServiceImpl(demoTransactionRepository transactionRepository,
+    public TransactionServiceImpl(BarterTransactionRepository transactionRepository,
                                   SkillMatchRepository matchRepository) {
         this.transactionRepository = transactionRepository;
         this.matchRepository = matchRepository;

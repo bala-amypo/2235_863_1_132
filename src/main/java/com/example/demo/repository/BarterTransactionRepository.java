@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface demoTransactionRepository extends JpaRepository<demoTransaction, Long> {
+public interface BarterTransactionRepository extends JpaRepository<demoTransaction, Long> {
 
     List<demoTransaction> findByStatus(String status);
 
