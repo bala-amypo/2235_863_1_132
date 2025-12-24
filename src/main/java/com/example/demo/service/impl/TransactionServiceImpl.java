@@ -1,65 +1,72 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.demoTransaction;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.BarterTransaction;
 import com.example.demo.model.SkillMatch;
 import com.example.demo.repository.BarterTransactionRepository;
 import com.example.demo.repository.SkillMatchRepository;
 import com.example.demo.service.TransactionService;
-import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-
-    private final BarterTransactionRepository transactionRepository;
-    private final SkillMatchRepository matchRepository;
-
-    public TransactionServiceImpl(BarterTransactionRepository transactionRepository,
-                                  SkillMatchRepository matchRepository) {
-        this.transactionRepository = transactionRepository;
-        this.matchRepository = matchRepository;
+    private final BarterTransactionRepository barterTransactionRepository;
+    private final SkillMatchRepository skillMatchRepository;
+    
+    public TransactionServiceImpl(BarterTransactionRepository barterTransactionRepository,
+                                 SkillMatchRepository skillMatchRepository) {
+        this.barterTransactionRepository = barterTransactionRepository;
+        this.skillMatchRepository = skillMatchRepository;
     }
-
+    
     @Override
-    public demoTransaction createTransaction(Long matchId) {
-
-        SkillMatch match = matchRepository.findById(matchId)
-                .orElseThrow(() -> new ResourceNotFoundException("Match not found"));
-
-        demoTransaction transaction = new demoTransaction();
-        transaction.setMatch(match);
-        transaction.setStatus("IN_PROGRESS");
-
-        return transactionRepository.save(transaction);
+    public BarterTransaction createTransaction(Long matchId) {
+        SkillMatch match = skillMatchRepository.findById(matchId)
+            .orElseThrow(() -> new ResourceNotFoundException("Match not found"));
+            
+        if (!"ACCEPTED".equals(match.getMatchStatus())) {
+            throw new BadRequestException("Match must be accepted before creating transaction");
+        }
+        
+        BarterTransaction transaction = new BarterTransaction(match);
+        return barterTransactionRepository.save(transaction);
     }
-
+    
     @Override
-    public demoTransaction completeTransaction(Long transactionId,
-                                                 Integer offererRating,
-                                                 Integer requesterRating) {
-
-        demoTransaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
-
+    public BarterTransaction getTransaction(Long id) {
+        return barterTransactionRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
+    }
+    
+    @Override
+    public List<BarterTransaction> getAllTransactions() {
+        return barterTransactionRepository.findAll();
+    }
+    
+    @Override
+    public BarterTransaction completeTransaction(Long transactionId, Integer offererRating, Integer requesterRating) {
+        BarterTransaction transaction = getTransaction(transactionId);
+        
+        if (offererRating != null && (offererRating < 1 || offererRating > 5)) {
+            throw new BadRequestException("Offerer rating must be between 1 and 5");
+        }
+        if (requesterRating != null && (requesterRating < 1 || requesterRating > 5)) {
+            throw new BadRequestException("Requester rating must be between 1 and 5");
+        }
+        
         transaction.setStatus("COMPLETED");
-        transaction.setCompletedDate(LocalDateTime.now());
         transaction.setOffererRating(offererRating);
         transaction.setRequesterRating(requesterRating);
-
-        return transactionRepository.save(transaction);
+        transaction.setCompletedAt(LocalDateTime.now());
+        
+        return barterTransactionRepository.save(transaction);
     }
-
+    
     @Override
-    public demoTransaction getTransactionById(Long transactionId) {
-        return transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
-    }
-
-    @Override
-    public List<demoTransaction> getTransactionsByStatus(String status) {
-        return transactionRepository.findByStatus(status);
+    public List<BarterTransaction> getTransactionsByStatus(String status) {
+        return barterTransactionRepository.findByStatus(status);
     }
 }
