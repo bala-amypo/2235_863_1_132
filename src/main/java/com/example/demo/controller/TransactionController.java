@@ -1,50 +1,48 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.demoTransaction;
+import com.example.demo.model.BarterTransaction;
 import com.example.demo.service.TransactionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/transactions")
+@Tag(name = "Transaction", description = "Barter transaction management endpoints")
 public class TransactionController {
-
     private final TransactionService transactionService;
-
+    
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
-
-    @PostMapping
-    public ResponseEntity<demoTransaction> create(@RequestParam Long matchId) {
-        return ResponseEntity.ok(transactionService.createTransaction(matchId));
+    
+    @PostMapping("/")
+    public ResponseEntity<BarterTransaction> createTransaction(@RequestBody Map<String, Long> request) {
+        return ResponseEntity.ok(transactionService.createTransaction(request.get("matchId")));
     }
-
-    @GetMapping
-    public ResponseEntity<List<demoTransaction>> getAll() {
+    
+    @GetMapping("/")
+    public ResponseEntity<List<BarterTransaction>> getAllTransactions() {
         return ResponseEntity.ok(transactionService.getAllTransactions());
     }
-
+    
     @GetMapping("/{id}")
-    public ResponseEntity<demoTransaction> get(@PathVariable Long id) {
+    public ResponseEntity<BarterTransaction> getTransaction(@PathVariable Long id) {
         return ResponseEntity.ok(transactionService.getTransaction(id));
     }
-
+    
     @PutMapping("/{id}/complete")
-    public ResponseEntity<demoTransaction> complete(
-            @PathVariable Long id,
-            @RequestParam Integer offererRating,
-            @RequestParam Integer requesterRating) {
-
-        return ResponseEntity.ok(
-                transactionService.completeTransaction(id, offererRating, requesterRating)
-        );
+    public ResponseEntity<BarterTransaction> completeTransaction(
+            @PathVariable Long id, 
+            @RequestParam(required = false) Integer offererRating,
+            @RequestParam(required = false) Integer requesterRating) {
+        return ResponseEntity.ok(transactionService.completeTransaction(id, offererRating, requesterRating));
     }
-
+    
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<demoTransaction>> getByStatus(@PathVariable String status) {
+    public ResponseEntity<List<BarterTransaction>> getTransactionsByStatus(@PathVariable String status) {
         return ResponseEntity.ok(transactionService.getTransactionsByStatus(status));
     }
 }
