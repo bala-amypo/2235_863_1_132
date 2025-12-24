@@ -1,39 +1,33 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SkillCategory;
 import com.example.demo.repository.SkillCategoryRepository;
 import com.example.demo.service.SkillCategoryService;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class SkillCategoryServiceImpl implements SkillCategoryService {
-
-    private final SkillCategoryRepository categoryRepository;
-
-    public SkillCategoryServiceImpl(SkillCategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private final SkillCategoryRepository skillCategoryRepository;
+    
+    public SkillCategoryServiceImpl(SkillCategoryRepository skillCategoryRepository) {
+        this.skillCategoryRepository = skillCategoryRepository;
     }
-
+    
     @Override
     public SkillCategory createCategory(SkillCategory category) {
-        if (categoryRepository.existsByCategoryName(category.getCategoryName())) {
-            throw new BadRequestException("Category already exists");
-        }
-        return categoryRepository.save(category);
+        return skillCategoryRepository.save(category);
     }
-
+    
     @Override
-    public SkillCategory getCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+    public SkillCategory getCategory(Long id) {
+        return skillCategoryRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
     }
-
+    
     @Override
     public List<SkillCategory> getAllCategories() {
-        return categoryRepository.findAll();
+        return skillCategoryRepository.findAll();
     }
 }
