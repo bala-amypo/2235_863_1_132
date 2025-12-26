@@ -1,7 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.SkillCategory;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
-public interface SkillCategoryRepository extends JpaRepository<SkillCategory, Long> {
+public interface SkillCategoryRepository {
+
+    SkillCategory save(SkillCategory category);
+
+    Optional<SkillCategory> findById(Long id);
+
+    List<SkillCategory> findAll();
 }

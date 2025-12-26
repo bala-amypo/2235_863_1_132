@@ -1,29 +1,64 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
 public class BarterTransaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private SkillMatch match;
+    private User fromUser;
+    private User toUser;
+    private String remarks;
+    private LocalDateTime createdAt;
 
-    private Long userId;
-    private Double amount;
-    private String type;
+    public BarterTransaction() {
+    }
 
-    public BarterTransaction() {}
+    public Long getId() {
+        return id;
+    }
 
-    // Getters and Setters
-    public Long getId() { return id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public SkillMatch getMatch() {
+        return match;
+    }
 
-    public Double getAmount() { return amount; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setMatch(SkillMatch match) {
+        this.match = match;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public User getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public User getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
