@@ -2,29 +2,16 @@ package com.example.demo.dto;
 
 public class MatchDto {
 
-    private Long offerId;
-    private Long requestId;
+    private Long user1Id;
+    private Long user2Id;
+    private String skill;
 
-    public MatchDto() {}
+    public Long getUser1Id() { return user1Id; }
+    public void setUser1Id(Long user1Id) { this.user1Id = user1Id; }
 
-    public MatchDto(Long offerId, Long requestId) {
-        this.offerId = offerId;
-        this.requestId = requestId;
-    }
+    public Long getUser2Id() { return user2Id; }
+    public void setUser2Id(Long user2Id) { this.user2Id = user2Id; }
 
-    public Long getOfferId() {
-        return offerId;
-    }
-
-    public void setOfferId(Long offerId) {
-        this.offerId = offerId;
-    }
-
-    public Long getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
-    }
+    public String getSkill() { return skill; }
+    public void setSkill(String skill) { this.skill = skill; }
 }
