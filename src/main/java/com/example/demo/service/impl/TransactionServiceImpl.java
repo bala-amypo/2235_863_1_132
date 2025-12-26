@@ -1,44 +1,34 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.BarterTransaction;
+import com.example.demo.model.Transaction;
+import com.example.demo.dto.TransactionDto;
 import com.example.demo.repository.BarterTransactionRepository;
 import com.example.demo.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final BarterTransactionRepository repository;
-
-    public TransactionServiceImpl(BarterTransactionRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private BarterTransactionRepository repository;
 
     @Override
-    public BarterTransaction createTransaction(BarterTransaction transaction) {
-        return repository.save(transaction);
-    }
-
-    @Override
-    public Optional<BarterTransaction> getTransactionById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public List<BarterTransaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions() {
         return repository.findAll();
     }
 
     @Override
-    public List<BarterTransaction> getTransactionsByUserId(Long userId) {
-        return repository.findByUserId(userId);
+    public Transaction createTransaction(TransactionDto dto) {
+        Transaction transaction = new Transaction();
+        // map DTO to entity here
+        return repository.save(transaction);
     }
 
     @Override
-    public void deleteTransaction(Long id) {
-        repository.deleteById(id);
+    public void complete(Long id, Integer field1, Integer field2) {
+        // implement complete logic
     }
 }

@@ -1,20 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.demoTransaction;
+import com.example.demo.model.Transaction;
+import com.example.demo.dto.TransactionDto;
 
 import java.util.List;
 
 public interface TransactionService {
-
-    demoTransaction create(Long matchId);
-
-    demoTransaction getById(Long id);
-
-    List<demoTransaction> getAll();
-
-    demoTransaction complete(
-            Long transactionId,
-            Integer offererRating,
-            Integer requesterRating
-    );
+    List<Transaction> getAllTransactions();
+    Transaction createTransaction(TransactionDto dto);
+    void complete(Long id, Integer someField1, Integer someField2);
 }

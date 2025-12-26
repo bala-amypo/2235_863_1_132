@@ -1,59 +1,53 @@
 package com.example.demo.util;
 
-import com.example.demo.model.SkillOffer;
-import com.example.demo.model.SkillRequest;
-import com.example.demo.model.SkillMatch;
-
-import java.util.ArrayList;
+import com.example.demo.model.User;
 import java.util.List;
 
 public class SkillMatchingEngine {
 
     /**
-     * Match skill offers with skill requests based on skill name and experience level.
-     *
-     * @param offers   List of SkillOffer
-     * @param requests List of SkillRequest
-     * @return List of SkillMatch with match scores
+     * Calculate match score between two users based on their skills.
+     * @param user1 First user
+     * @param user2 Second user
+     * @return match score as integer
      */
-    public static List<SkillMatch> matchSkills(List<SkillOffer> offers, List<SkillRequest> requests) {
-        List<SkillMatch> matches = new ArrayList<>();
+    public int calculateMatchScore(User user1, User user2) {
+        int score = 0;
 
-        for (SkillOffer offer : offers) {
-            for (SkillRequest request : requests) {
-                if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
-                    double score = calculateScore(offer, request);
-                    SkillMatch match = new SkillMatch();
-                    match.setOffer(offer);
-                    match.setRequest(request);
-                    match.setMatchScore(score);
-                    matches.add(match);
-                }
-            }
-        }
+        // Example: assuming User has skillLevel as String, convert to int
+        try {
+            int skillLevel1 = Integer.parseInt(user1.getSkillLevel());
+            int skillLevel2 = Integer.parseInt(user2.getSkillLevel());
 
-        return matches;
-    }
-
-    /**
-     * Calculate a simple match score based on experience and required levels.
-     *
-     * @param offer   SkillOffer
-     * @param request SkillRequest
-     * @return match score (0-100)
-     */
-    private static double calculateScore(SkillOffer offer, SkillRequest request) {
-        int offerLevel = offer.getExperienceLevel();
-        int requestLevel = request.getRequiredLevel();
-
-        // Basic scoring: 100 if exact match, less if lower
-        double score = 0;
-        if (offerLevel >= requestLevel) {
-            score = 100;
-        } else {
-            score = ((double) offerLevel / requestLevel) * 100;
+            // Simple scoring logic (can be replaced with your own algorithm)
+            score = 100 - Math.abs(skillLevel1 - skillLevel2);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing skill level: " + e.getMessage());
         }
 
         return score;
+    }
+
+    /**
+     * Find the best match from a list of users for a given user.
+     * @param targetUser the user to match
+     * @param allUsers list of users to compare with
+     * @return user with highest match score
+     */
+    public User findBestMatch(User targetUser, List<User> allUsers) {
+        User bestMatch = null;
+        int highestScore = -1;
+
+        for (User user : allUsers) {
+            if (user.getId().equals(targetUser.getId())) continue; // skip self
+
+            int score = calculateMatchScore(targetUser, user);
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatch = user;
+            }
+        }
+
+        return bestMatch;
     }
 }

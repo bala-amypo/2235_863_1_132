@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.model.SkillMatch;
 import com.example.demo.repository.SkillMatchRepository;
 import com.example.demo.service.MatchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +12,12 @@ import java.util.Optional;
 @Service
 public class MatchServiceImpl implements MatchService {
 
-    private final SkillMatchRepository repository;
-
-    public MatchServiceImpl(SkillMatchRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private SkillMatchRepository repository;
 
     @Override
-    public SkillMatch createMatch(SkillMatch match) {
-        return repository.save(match);
+    public List<SkillMatch> getAllMatches() {
+        return repository.findAll();
     }
 
     @Override
@@ -28,17 +26,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public List<SkillMatch> getAllMatches() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<SkillMatch> getMatchesByOfferOrRequestId(Long offerId, Long requestId) {
-        return repository.findByOfferIdOrRequestId(offerId, requestId);
-    }
-
-    @Override
-    public void deleteMatch(Long id) {
-        repository.deleteById(id);
+    public SkillMatch createMatch(SkillMatch match) {
+        return repository.save(match);
     }
 }
