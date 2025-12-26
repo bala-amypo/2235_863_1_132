@@ -1,53 +1,32 @@
 package com.example.demo.util;
 
 import com.example.demo.model.User;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SkillMatchingEngine {
 
     /**
-     * Calculate match score between two users based on their skills.
-     * @param user1 First user
-     * @param user2 Second user
-     * @return match score as integer
+     * Checks if two users are a match based on skill level.
+     * Here, a match is defined as having skill levels within 1 point difference.
      */
-    public int calculateMatchScore(User user1, User user2) {
-        int score = 0;
-
-        // Example: assuming User has skillLevel as String, convert to int
-        try {
-            int skillLevel1 = Integer.parseInt(user1.getSkillLevel());
-            int skillLevel2 = Integer.parseInt(user2.getSkillLevel());
-
-            // Simple scoring logic (can be replaced with your own algorithm)
-            score = 100 - Math.abs(skillLevel1 - skillLevel2);
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing skill level: " + e.getMessage());
-        }
-
-        return score;
+    public static boolean isMatch(User user1, User user2) {
+        int level1 = user1.getSkillLevel();
+        int level2 = user2.getSkillLevel();
+        return Math.abs(level1 - level2) <= 1;
     }
 
     /**
-     * Find the best match from a list of users for a given user.
-     * @param targetUser the user to match
-     * @param allUsers list of users to compare with
-     * @return user with highest match score
+     * Finds all users from a list that match the given user based on skill level.
      */
-    public User findBestMatch(User targetUser, List<User> allUsers) {
-        User bestMatch = null;
-        int highestScore = -1;
-
-        for (User user : allUsers) {
-            if (user.getId().equals(targetUser.getId())) continue; // skip self
-
-            int score = calculateMatchScore(targetUser, user);
-            if (score > highestScore) {
-                highestScore = score;
-                bestMatch = user;
+    public static List<User> findMatches(User user, List<User> allUsers) {
+        List<User> matches = new ArrayList<>();
+        for (User otherUser : allUsers) {
+            if (!otherUser.equals(user) && isMatch(user, otherUser)) {
+                matches.add(otherUser);
             }
         }
-
-        return bestMatch;
+        return matches;
     }
 }

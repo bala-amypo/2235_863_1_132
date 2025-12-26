@@ -22,7 +22,14 @@ public class MatchController {
     }
 
     @PostMapping
-    public ResponseEntity<SkillMatch> createMatch(@RequestBody MatchDto dto) {
-        return ResponseEntity.ok(matchService.createMatch(dto));
-    }
+    public SkillMatch createMatch(@RequestBody MatchDto matchDto) {
+    SkillMatch match = new SkillMatch();
+    match.setUser1Id(matchDto.getUser1Id());
+    match.setUser2Id(matchDto.getUser2Id());
+    match.setSkill(matchDto.getSkill());
+    return matchService.createMatch(match);
 }
+
+}
+
+

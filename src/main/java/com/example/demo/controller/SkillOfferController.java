@@ -15,13 +15,16 @@ public class SkillOfferController {
     @Autowired
     private SkillOfferService offerService;
 
-    @GetMapping
-    public List<SkillOffer> getAllOffers() {
-        return offerService.getAllOffers();
-    }
-
-    @PostMapping
-    public ResponseEntity<SkillOffer> createOffer(@RequestBody SkillOffer offer) {
-        return ResponseEntity.ok(offerService.createOffer(offer));
-    }
+@GetMapping
+public List<SkillOffer> getAllOffers() {
+    return offerService.getAllOffers();
 }
+
+@PostMapping
+public SkillOffer createOffer(@RequestBody SkillOffer skillOffer) {
+    return offerService.createOffer(skillOffer);
+}
+
+}
+
+
