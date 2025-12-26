@@ -5,29 +5,31 @@ import com.example.demo.model.SkillCategory;
 import com.example.demo.repository.SkillCategoryRepository;
 import com.example.demo.service.SkillCategoryService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class SkillCategoryServiceImpl implements SkillCategoryService {
-    private final SkillCategoryRepository skillCategoryRepository;
-    
-    public SkillCategoryServiceImpl(SkillCategoryRepository skillCategoryRepository) {
-        this.skillCategoryRepository = skillCategoryRepository;
+
+    private final SkillCategoryRepository categoryRepository;
+
+    public SkillCategoryServiceImpl(SkillCategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
-    
+
     @Override
     public SkillCategory createCategory(SkillCategory category) {
-        return skillCategoryRepository.save(category);
+        return categoryRepository.save(category);
     }
-    
+
     @Override
     public SkillCategory getCategory(Long id) {
-        return skillCategoryRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
     }
-    
+
     @Override
     public List<SkillCategory> getAllCategories() {
-        return skillCategoryRepository.findAll();
+        return categoryRepository.findAll();
     }
 }
