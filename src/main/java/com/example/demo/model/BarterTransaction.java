@@ -4,76 +4,38 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "demo_transactions")
-public class demoTransaction {
+@Table(name = "barter_transactions")
+public class BarterTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "match_id")
-    private SkillMatch match;
+    @ManyToOne
+    private SkillOffer offer;
 
-    private String status = "IN_PROGRESS";
+    @ManyToOne
+    private SkillRequest request;
 
-    private Integer offererRating;
-    private Integer requesterRating;
+    private LocalDateTime transactionTime;
 
-    private LocalDateTime completedAt;
+    public BarterTransaction() {}
 
-    public demoTransaction() {
+    public BarterTransaction(SkillOffer offer, SkillRequest request, LocalDateTime transactionTime) {
+        this.offer = offer;
+        this.request = request;
+        this.transactionTime = transactionTime;
     }
 
-    public demoTransaction(SkillMatch match) {
-        this.match = match;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public SkillOffer getOffer() { return offer; }
+    public void setOffer(SkillOffer offer) { this.offer = offer; }
 
-    public SkillMatch getMatch() {
-        return match;
-    }
+    public SkillRequest getRequest() { return request; }
+    public void setRequest(SkillRequest request) { this.request = request; }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public Integer getOffererRating() {
-        return offererRating;
-    }
-
-    public Integer getRequesterRating() {
-        return requesterRating;
-    }
-
-    public LocalDateTime getCompletedAt() {
-        return completedAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setMatch(SkillMatch match) {
-        this.match = match;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setOffererRating(Integer offererRating) {
-        this.offererRating = offererRating;
-    }
-
-    public void setRequesterRating(Integer requesterRating) {
-        this.requesterRating = requesterRating;
-    }
-
-    public void setCompletedAt(LocalDateTime completedAt) {
-        this.completedAt = completedAt;
-    }
+    public LocalDateTime getTransactionTime() { return transactionTime; }
+    public void setTransactionTime(LocalDateTime transactionTime) { this.transactionTime = transactionTime; }
 }

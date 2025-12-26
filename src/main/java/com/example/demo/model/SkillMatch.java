@@ -11,52 +11,30 @@ public class SkillMatch {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "request_id")
-    private SkillRequest skillRequest;
+    private SkillOffer offer;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id")
-    private SkillOffer skillOffer;
+    private SkillRequest request;
 
-    private String status = "MATCHED";
+    private double matchScore;
 
-    public SkillMatch() {
+    public SkillMatch() {}
+
+    public SkillMatch(SkillOffer offer, SkillRequest request, double matchScore) {
+        this.offer = offer;
+        this.request = request;
+        this.matchScore = matchScore;
     }
 
-    public SkillMatch(SkillRequest skillRequest, SkillOffer skillOffer) {
-        this.skillRequest = skillRequest;
-        this.skillOffer = skillOffer;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public SkillOffer getOffer() { return offer; }
+    public void setOffer(SkillOffer offer) { this.offer = offer; }
 
-    public SkillRequest getSkillRequest() {
-        return skillRequest;
-    }
+    public SkillRequest getRequest() { return request; }
+    public void setRequest(SkillRequest request) { this.request = request; }
 
-    public SkillOffer getSkillOffer() {
-        return skillOffer;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setSkillRequest(SkillRequest skillRequest) {
-        this.skillRequest = skillRequest;
-    }
-
-    public void setSkillOffer(SkillOffer skillOffer) {
-        this.skillOffer = skillOffer;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public double getMatchScore() { return matchScore; }
+    public void setMatchScore(double matchScore) { this.matchScore = matchScore; }
 }
