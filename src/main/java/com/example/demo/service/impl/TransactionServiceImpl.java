@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Transaction;
+import com.example.demo.model.BarterTransaction;
 import com.example.demo.dto.TransactionDto;
 import com.example.demo.repository.BarterTransactionRepository;
 import com.example.demo.service.TransactionService;
@@ -16,19 +16,17 @@ public class TransactionServiceImpl implements TransactionService {
     private BarterTransactionRepository repository;
 
     @Override
-    public List<Transaction> getAllTransactions() {
+    public List<BarterTransaction> getAllTransactions() {
         return repository.findAll();
     }
 
     @Override
-    public Transaction createTransaction(TransactionDto dto) {
-        Transaction transaction = new Transaction();
-        // map DTO to entity here
+    public BarterTransaction createTransaction(TransactionDto transactionDto) {
+        BarterTransaction transaction = new BarterTransaction();
+        transaction.setUserId(transactionDto.getUserId());
+        transaction.setAmount(transactionDto.getAmount());
+        transaction.setType(transactionDto.getType());
+        // Set other fields if present
         return repository.save(transaction);
-    }
-
-    @Override
-    public void complete(Long id, Integer field1, Integer field2) {
-        // implement complete logic
     }
 }
