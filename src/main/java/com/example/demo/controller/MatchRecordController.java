@@ -1,22 +1,22 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.SkillMatch;
-import com.example.demo.service.MatchService;
+import com.example.demo.model.MatchRecord;
+import com.example.demo.service.MatchmakingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/matches")
-public class MatchController {
+public class MatchRecordController {
 
-    private final MatchService service;
+    private final MatchmakingService matchmakingService;
 
-    public MatchController(MatchService service) {
-        this.service = service;
+    public MatchRecordController(MatchmakingService matchmakingService) {
+        this.matchmakingService = matchmakingService;
     }
 
-    @PostMapping("/{requestId}")
-    public ResponseEntity<SkillMatch> generate(@PathVariable Long requestId) {
-        return ResponseEntity.ok(service.generateMatch(requestId));
+    @PostMapping("/{userId}")
+    public ResponseEntity<MatchRecord> generate(@PathVariable Long userId) {
+        return ResponseEntity.ok(matchmakingService.generateMatch(userId));
     }
 }

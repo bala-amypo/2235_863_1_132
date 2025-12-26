@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/requests")
 public class SkillRequestController {
 
-    private final SkillRequestService service;
+    private final SkillRequestService skillRequestService;
 
-    public SkillRequestController(SkillRequestService service) {
-        this.service = service;
+    public SkillRequestController(SkillRequestService skillRequestService) {
+        this.skillRequestService = skillRequestService;
     }
 
     @PostMapping
     public ResponseEntity<SkillRequest> create(@RequestBody SkillRequest request) {
-        return ResponseEntity.ok(service.createRequest(request));
+        return ResponseEntity.ok(skillRequestService.createRequest(request));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SkillRequest> get(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getRequestById(id));
+        return ResponseEntity.ok(skillRequestService.getRequestById(id));
     }
 }

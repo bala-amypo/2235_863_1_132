@@ -1,13 +1,8 @@
 package com.example.demo.exception;
 
-public class BadRequestException extends RuntimeException {
+public class DuplicateEmailException extends RuntimeException {
 
-    public BadRequestException() {
-        super();
-    }
-
-    public BadRequestException(String message) {
-        super(message);
+    public DuplicateEmailException() {
+        super("Email already exists");
     }
 }
-    

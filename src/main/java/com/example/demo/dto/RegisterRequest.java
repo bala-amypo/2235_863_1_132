@@ -1,44 +1,20 @@
 package com.example.demo.dto;
 
-public class MatchDto {
+public class RegisterRequest {
 
-    private Long matchId;
-    private Long userAId;
-    private Long userBId;
-    private String status;
+    private String fullName;
+    private String email;
+    private String password;
 
-    public MatchDto() {
+    public String getFullName() {   // REQUIRED
+        return fullName;
     }
 
-    public Long getMatchId() {
-        return matchId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMatchId(Long matchId) {
-        this.matchId = matchId;
-    }
-
-    public Long getUserAId() {
-        return userAId;
-    }
-
-    public void setUserAId(Long userAId) {
-        this.userAId = userAId;
-    }
-
-    public Long getUserBId() {
-        return userBId;
-    }
-
-    public void setUserBId(Long userBId) {
-        this.userBId = userBId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public String getPassword() {
+        return password;
     }
 }
