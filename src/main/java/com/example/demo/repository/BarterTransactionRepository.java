@@ -1,9 +1,11 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.BarterTransaction;
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import java.util.Optional;
 
-public interface BarterTransactionRepository extends JpaRepository<BarterTransaction, Long> {
-    List<BarterTransaction> findByFromUserIdOrToUserId(Long fromUserId, Long toUserId);
+public interface BarterTransactionRepository {
+
+    BarterTransaction save(BarterTransaction transaction);
+
+    Optional<BarterTransaction> findById(Long id);
 }

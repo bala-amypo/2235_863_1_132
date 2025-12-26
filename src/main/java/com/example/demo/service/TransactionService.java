@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.BarterTransaction;
 import com.example.demo.dto.TransactionDto;
-import java.util.List;
+import com.example.demo.model.BarterTransaction;
 
 public interface TransactionService {
-    List<BarterTransaction> getAllTransactions();
-    BarterTransaction createTransaction(TransactionDto transactionDto);
+
+    BarterTransaction createTransaction(TransactionDto dto);
 }
