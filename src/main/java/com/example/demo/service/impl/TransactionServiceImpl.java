@@ -20,13 +20,12 @@ public class TransactionServiceImpl implements TransactionService {
         return repository.findAll();
     }
 
-    @Override
-    public BarterTransaction createTransaction(TransactionDto transactionDto) {
-        BarterTransaction transaction = new BarterTransaction();
-        transaction.setUserId(transactionDto.getUserId());
-        transaction.setAmount(transactionDto.getAmount());
-        transaction.setType(transactionDto.getType());
-        // Set other fields if present
-        return repository.save(transaction);
-    }
+@Override
+public BarterTransaction createTransaction(TransactionDto transactionDto) {
+    BarterTransaction transaction = new BarterTransaction();
+    transaction.setUserId(transactionDto.getUserId());
+    transaction.setAmount(transactionDto.getAmount());
+    transaction.setType(transactionDto.getType());
+    return repository.save(transaction);
+   }
 }

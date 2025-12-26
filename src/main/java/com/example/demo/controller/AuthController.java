@@ -15,11 +15,12 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        AuthResponse response = userService.login(request);
-        return ResponseEntity.ok(response);
-    }
+  @PostMapping("/login")
+  public AuthResponse login(@RequestBody AuthRequest request) {
+    String token = authService.login(request);
+    return new AuthResponse(token); // Wrap token in AuthResponse DTO
+}
+
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
@@ -27,3 +28,6 @@ public class AuthController {
         return ResponseEntity.ok(savedUser);
     }
 }
+
+
+
