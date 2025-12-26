@@ -1,57 +1,34 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.SkillMatch;
-import com.example.demo.service.MatchService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.example.demo.model.MatchRecord;
+import com.example.demo.service.MatchmakingService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/matches")
-@Tag(name = "Match", description = "Skill match management endpoints")
 public class MatchController {
-    private final MatchService matchService;
-    
-    public MatchController(MatchService matchService) {
+
+    private final MatchmakingService matchService;
+
+    public MatchController(MatchmakingService matchService) {
         this.matchService = matchService;
     }
-    
-    @PostMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<SkillMatch> createMatch(@RequestBody Map<String, Long> request) {
-        return ResponseEntity.ok(matchService.createMatch(
-            request.get("offerId"), 
-            request.get("requestId"), 
-            request.get("adminUserId")
-        ));
+
+    @PostMapping
+    public ResponseEntity<MatchRecord> generate(@RequestParam Long requestId) {
+        return ResponseEntity.ok(matchService.generateMatch(requestId));
     }
-    
-    @GetMapping("/")
-    public ResponseEntity<List<SkillMatch>> getAllMatches() {
+
+    @GetMapping
+    public ResponseEntity<List<MatchRecord>> list() {
         return ResponseEntity.ok(matchService.getAllMatches());
     }
-    
+
     @GetMapping("/{id}")
-    public ResponseEntity<SkillMatch> getMatch(@PathVariable Long id) {
-        return ResponseEntity.ok(matchService.getMatch(id));
-    }
-    
-    @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<SkillMatch> updateMatchStatus(@PathVariable Long id, @RequestParam String status) {
-        return ResponseEntity.ok(matchService.updateMatchStatus(id, status));
-    }
-    
-    @GetMapping("/offer/{offerId}")
-    public ResponseEntity<List<SkillMatch>> getMatchesByOffer(@PathVariable Long offerId) {
-        return ResponseEntity.ok(matchService.getMatchesByOffer(offerId));
-    }
-    
-    @GetMapping("/request/{requestId}")
-    public ResponseEntity<List<SkillMatch>> getMatchesByRequest(@PathVariable Long requestId) {
-        return ResponseEntity.ok(matchService.getMatchesByRequest(requestId));
+    public ResponseEntity<MatchRecord> get(@PathVariable Long id) {
+        return ResponseEntity.ok(matchService.getMatchById(id));
     }
 }
