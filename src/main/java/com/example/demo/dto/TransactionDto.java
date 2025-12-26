@@ -1,54 +1,40 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.demoTransaction;
-
-import java.time.LocalDateTime;
-
 public class TransactionDto {
 
-    private Long id;
-    private Long offerId;
-    private Long requestId;
-    private LocalDateTime transactionTime;
+    private Long fromUserId;
+    private Long toUserId;
+    private Long matchId;
 
     public TransactionDto() {}
 
-    public TransactionDto(demoTransaction transaction) {
-        this.id = transaction.getId();
-        this.offerId = transaction.getOffer().getId();
-        this.requestId = transaction.getRequest().getId();
-        this.transactionTime = transaction.getTransactionTime();
+    public TransactionDto(Long fromUserId, Long toUserId, Long matchId) {
+        this.fromUserId = fromUserId;
+        this.toUserId = toUserId;
+        this.matchId = matchId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getFromUserId() {
+        return fromUserId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFromUserId(Long fromUserId) {
+        this.fromUserId = fromUserId;
     }
 
-    public Long getOfferId() {
-        return offerId;
+    public Long getToUserId() {
+        return toUserId;
     }
 
-    public void setOfferId(Long offerId) {
-        this.offerId = offerId;
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
     }
 
-    public Long getRequestId() {
-        return requestId;
+    public Long getMatchId() {
+        return matchId;
     }
 
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
-    }
-
-    public LocalDateTime getTransactionTime() {
-        return transactionTime;
-    }
-
-    public void setTransactionTime(LocalDateTime transactionTime) {
-        this.transactionTime = transactionTime;
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
     }
 }

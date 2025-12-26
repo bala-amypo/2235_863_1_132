@@ -1,43 +1,30 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.SkillOffer;
-import com.example.demo.model.SkillRequest;
-
 public class MatchDto {
 
-    private SkillOffer offer;
-    private SkillRequest request;
-    private double matchScore;
+    private Long offerId;
+    private Long requestId;
 
     public MatchDto() {}
 
-    public MatchDto(SkillOffer offer, SkillRequest request, double matchScore) {
-        this.offer = offer;
-        this.request = request;
-        this.matchScore = matchScore;
+    public MatchDto(Long offerId, Long requestId) {
+        this.offerId = offerId;
+        this.requestId = requestId;
     }
 
-    public SkillOffer getOffer() {
-        return offer;
+    public Long getOfferId() {
+        return offerId;
     }
 
-    public void setOffer(SkillOffer offer) {
-        this.offer = offer;
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
     }
 
-    public SkillRequest getRequest() {
-        return request;
+    public Long getRequestId() {
+        return requestId;
     }
 
-    public void setRequest(SkillRequest request) {
-        this.request = request;
-    }
-
-    public double getMatchScore() {
-        return matchScore;
-    }
-
-    public void setMatchScore(double matchScore) {
-        this.matchScore = matchScore;
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 }

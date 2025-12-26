@@ -2,32 +2,26 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SkillRequest;
 import com.example.demo.service.SkillRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/requests")
+@RequestMapping("/api/requests")
 public class SkillRequestController {
 
-    private final SkillRequestService requestService;
+    @Autowired
+    private SkillRequestService requestService;
 
-    public SkillRequestController(SkillRequestService requestService) {
-        this.requestService = requestService;
+    @GetMapping
+    public List<SkillRequest> getAllRequests() {
+        return requestService.getAllRequests();
     }
 
     @PostMapping
-    public SkillRequest create(@RequestBody SkillRequest request) {
-        return requestService.createRequest(request);
-    }
-
-    @GetMapping("/{id}")
-    public SkillRequest get(@PathVariable Long id) {
-        return requestService.getRequestById(id);
-    }
-
-    @GetMapping
-    public List<SkillRequest> all() {
-        return requestService.getAllRequests();
+    public ResponseEntity<SkillRequest> createRequest(@RequestBody SkillRequest request) {
+        return ResponseEntity.ok(requestService.createRequest(request));
     }
 }
