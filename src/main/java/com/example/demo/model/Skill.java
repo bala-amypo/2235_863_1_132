@@ -1,62 +1,29 @@
 package com.example.demo.model;
 
-public class SkillMatch {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "skills")
+public class Skill {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private User userA;
-    private User userB;
-    private SkillCategory skillOfferedByA;
-    private SkillCategory skillOfferedByB;
-    private String status = "PENDING";
 
-    public SkillMatch() {
-    }
+    private String name;
+    private String category;
+    private boolean active = true;
 
-    public Long getId() {
-        return id;
-    }
+    // getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public User getUserA() {
-        return userA;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setUserA(User userA) {
-        this.userA = userA;
-    }
-
-    public User getUserB() {
-        return userB;
-    }
-
-    public void setUserB(User userB) {
-        this.userB = userB;
-    }
-
-    public SkillCategory getSkillOfferedByA() {
-        return skillOfferedByA;
-    }
-
-    public void setSkillOfferedByA(SkillCategory skillOfferedByA) {
-        this.skillOfferedByA = skillOfferedByA;
-    }
-
-    public SkillCategory getSkillOfferedByB() {
-        return skillOfferedByB;
-    }
-
-    public void setSkillOfferedByB(SkillCategory skillOfferedByB) {
-        this.skillOfferedByB = skillOfferedByB;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

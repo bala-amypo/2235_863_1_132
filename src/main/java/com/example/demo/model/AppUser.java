@@ -2,51 +2,46 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
-public class User {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String fullName;
     private String email;
-    private String role = "MONITOR";
-    private boolean active = true;
+    private String password;
+    private String role;
+
     private LocalDateTime createdAt;
 
-    public User() {
+    public AppUser() {
+        this.createdAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public AppUser(String fullName, String email, String password, String role) {
+        this.fullName = fullName;
         this.email = email;
+        this.password = password;
+        this.role = role;
+        this.createdAt = LocalDateTime.now();
     }
 
-    public String getRole() {
-        return role;
-    }
+    // ===== getters =====
+    public Long getId() { return id; }
+    public String getFullName() { return fullName; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+    public String getRole() { return role; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
+    // ===== setters (REQUIRED BY TESTS) =====
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

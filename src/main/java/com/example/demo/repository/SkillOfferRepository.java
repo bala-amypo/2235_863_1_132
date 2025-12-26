@@ -1,14 +1,11 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.SkillOffer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
-import java.util.Optional;
 
-public interface SkillOfferRepository {
-
-    SkillOffer save(SkillOffer offer);
-
-    Optional<SkillOffer> findById(Long id);
+public interface SkillOfferRepository extends JpaRepository<SkillOffer, Long> {
 
     List<SkillOffer> findByUserId(Long userId);
 }

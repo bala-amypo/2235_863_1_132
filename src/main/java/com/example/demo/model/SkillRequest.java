@@ -1,53 +1,39 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "skill_requests")
 public class SkillRequest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private User user;
-    private SkillCategory skillCategory;
+
     private String urgencyLevel;
     private boolean active = true;
 
-    public SkillRequest() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserProfile user;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public User getUser() {
-        return user;
-    }
+    public String getUrgencyLevel() { return urgencyLevel; }
+    public void setUrgencyLevel(String urgencyLevel) { this.urgencyLevel = urgencyLevel; }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public SkillCategory getSkillCategory() {
-        return skillCategory;
-    }
+    public UserProfile getUser() { return user; }
+    public void setUser(UserProfile user) { this.user = user; }
 
-    public void setSkillCategory(SkillCategory skillCategory) {
-        this.skillCategory = skillCategory;
-    }
-
-    public String getUrgencyLevel() {
-        return urgencyLevel;
-    }
-
-    public void setUrgencyLevel(String urgencyLevel) {
-        this.urgencyLevel = urgencyLevel;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    public Skill getSkill() { return skill; }
+    public void setSkill(Skill skill) { this.skill = skill; }
 }

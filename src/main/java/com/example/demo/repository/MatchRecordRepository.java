@@ -1,14 +1,11 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.SkillMatch;
+import com.example.demo.model.MatchRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
-import java.util.Optional;
 
-public interface SkillMatchRepository {
+public interface MatchRecordRepository extends JpaRepository<MatchRecord, Long> {
 
-    SkillMatch save(SkillMatch match);
-
-    Optional<SkillMatch> findById(Long id);
-
-    List<SkillMatch> findByUserAIdOrUserBId(Long userAId, Long userBId);
+    List<MatchRecord> findByUserAIdOrUserBId(Long userAId, Long userBId);
 }
