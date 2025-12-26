@@ -1,80 +1,54 @@
-package com.example.demo.dto;
+package com.example.barter.dto;
+
+import com.example.barter.model.BarterTransaction;
 
 import java.time.LocalDateTime;
 
 public class TransactionDto {
 
     private Long id;
-    private Long matchId;
-    private String status;
-    private Integer offererRating;
-    private Integer requesterRating;
-    private LocalDateTime completedAt;
+    private Long offerId;
+    private Long requestId;
+    private LocalDateTime transactionTime;
 
-    public TransactionDto() {
-    }
+    public TransactionDto() {}
 
-    public TransactionDto(
-            Long id,
-            Long matchId,
-            String status,
-            Integer offererRating,
-            Integer requesterRating,
-            LocalDateTime completedAt
-    ) {
-        this.id = id;
-        this.matchId = matchId;
-        this.status = status;
-        this.offererRating = offererRating;
-        this.requesterRating = requesterRating;
-        this.completedAt = completedAt;
+    public TransactionDto(BarterTransaction transaction) {
+        this.id = transaction.getId();
+        this.offerId = transaction.getOffer().getId();
+        this.requestId = transaction.getRequest().getId();
+        this.transactionTime = transaction.getTransactionTime();
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getMatchId() {
-        return matchId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Integer getOffererRating() {
-        return offererRating;
-    }
-
-    public Integer getRequesterRating() {
-        return requesterRating;
-    }
-
-    public LocalDateTime getCompletedAt() {
-        return completedAt;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setMatchId(Long matchId) {
-        this.matchId = matchId;
+    public Long getOfferId() {
+        return offerId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
     }
 
-    public void setOffererRating(Integer offererRating) {
-        this.offererRating = offererRating;
+    public Long getRequestId() {
+        return requestId;
     }
 
-    public void setRequesterRating(Integer requesterRating) {
-        this.requesterRating = requesterRating;
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 
-    public void setCompletedAt(LocalDateTime completedAt) {
-        this.completedAt = completedAt;
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
     }
 }

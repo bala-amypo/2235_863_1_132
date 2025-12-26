@@ -1,51 +1,43 @@
-package com.example.demo.dto;
+package com.example.barter.dto;
+
+import com.example.barter.model.SkillOffer;
+import com.example.barter.model.SkillRequest;
 
 public class MatchDto {
 
-    private Long id;
-    private Long skillRequestId;
-    private Long skillOfferId;
-    private String status;
+    private SkillOffer offer;
+    private SkillRequest request;
+    private double matchScore;
 
-    public MatchDto() {
+    public MatchDto() {}
+
+    public MatchDto(SkillOffer offer, SkillRequest request, double matchScore) {
+        this.offer = offer;
+        this.request = request;
+        this.matchScore = matchScore;
     }
 
-    public MatchDto(Long id, Long skillRequestId, Long skillOfferId, String status) {
-        this.id = id;
-        this.skillRequestId = skillRequestId;
-        this.skillOfferId = skillOfferId;
-        this.status = status;
+    public SkillOffer getOffer() {
+        return offer;
     }
 
-    public Long getId() {
-        return id;
+    public void setOffer(SkillOffer offer) {
+        this.offer = offer;
     }
 
-    public Long getSkillRequestId() {
-        return skillRequestId;
+    public SkillRequest getRequest() {
+        return request;
     }
 
-    public Long getSkillOfferId() {
-        return skillOfferId;
+    public void setRequest(SkillRequest request) {
+        this.request = request;
     }
 
-    public String getStatus() {
-        return status;
+    public double getMatchScore() {
+        return matchScore;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setSkillRequestId(Long skillRequestId) {
-        this.skillRequestId = skillRequestId;
-    }
-
-    public void setSkillOfferId(Long skillOfferId) {
-        this.skillOfferId = skillOfferId;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMatchScore(double matchScore) {
+        this.matchScore = matchScore;
     }
 }
