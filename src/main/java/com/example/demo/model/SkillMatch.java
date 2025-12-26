@@ -1,75 +1,62 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "skill_matches")
 public class SkillMatch {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "offer_id", nullable = false)
-    private SkillOffer offer;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id", nullable = false)
-    private SkillRequest request;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "matched_by_id", nullable = false)
-    private User matchedBy;
-    
-    @Column(nullable = false)
-    private String matchStatus = "PENDING";
-    
-    @Column(nullable = false)
-    private Double matchScore = 0.0;
-    
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-    
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
-    private List<BarterTransaction> barterTransactions;
-    
-    public SkillMatch() {}
-    
-    public SkillMatch(SkillOffer offer, SkillRequest request, User matchedBy) {
-        this.offer = offer;
-        this.request = request;
-        this.matchedBy = matchedBy;
+
+    @ManyToOne
+    @JoinColumn(name = "request_id")
+    private SkillRequest skillRequest;
+
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private SkillOffer skillOffer;
+
+    private String status = "MATCHED";
+
+    public SkillMatch() {
     }
-    
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
+
+    public SkillMatch(SkillRequest skillRequest, SkillOffer skillOffer) {
+        this.skillRequest = skillRequest;
+        this.skillOffer = skillOffer;
     }
-    
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public SkillOffer getOffer() { return offer; }
-    public void setOffer(SkillOffer offer) { this.offer = offer; }
-    
-    public SkillRequest getRequest() { return request; }
-    public void setRequest(SkillRequest request) { this.request = request; }
-    
-    public User getMatchedBy() { return matchedBy; }
-    public void setMatchedBy(User matchedBy) { this.matchedBy = matchedBy; }
-    
-    public String getMatchStatus() { return matchStatus; }
-    public void setMatchStatus(String matchStatus) { this.matchStatus = matchStatus; }
-    
-    public Double getMatchScore() { return matchScore; }
-    public void setMatchScore(Double matchScore) { this.matchScore = matchScore; }
-    
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    
-    public List<BarterTransaction> getBarterTransactions() { return barterTransactions; }
-    public void setBarterTransactions(List<BarterTransaction> barterTransactions) { this.barterTransactions = barterTransactions; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public SkillRequest getSkillRequest() {
+        return skillRequest;
+    }
+
+    public SkillOffer getSkillOffer() {
+        return skillOffer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSkillRequest(SkillRequest skillRequest) {
+        this.skillRequest = skillRequest;
+    }
+
+    public void setSkillOffer(SkillOffer skillOffer) {
+        this.skillOffer = skillOffer;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
