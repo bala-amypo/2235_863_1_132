@@ -1,7 +1,7 @@
-package com.example.barter.controller;
+package com.example.demo.controller;
 
-import com.example.barter.model.BarterTransaction;
-import com.example.barter.service.TransactionService;
+import com.example.demo.model.demoTransaction;
+import com.example.demo.service.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +17,12 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public BarterTransaction get(@PathVariable Long id) {
+    public demoTransaction get(@PathVariable Long id) {
         return transactionService.getById(id);
     }
 
     @GetMapping
-    public List<BarterTransaction> all() {
+    public List<demoTransaction> all() {
         return transactionService.getAll();
     }
 }

@@ -1,6 +1,6 @@
-package com.example.barter.dto;
+package com.example.demo.dto;
 
-import com.example.barter.model.BarterTransaction;
+import com.example.demo.model.demoTransaction;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,7 @@ public class TransactionDto {
 
     public TransactionDto() {}
 
-    public TransactionDto(BarterTransaction transaction) {
+    public TransactionDto(demoTransaction transaction) {
         this.id = transaction.getId();
         this.offerId = transaction.getOffer().getId();
         this.requestId = transaction.getRequest().getId();

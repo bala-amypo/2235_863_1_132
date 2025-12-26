@@ -1,7 +1,7 @@
-package com.example.barter.dto;
+package com.example.demo.dto;
 
-import com.example.barter.model.SkillOffer;
-import com.example.barter.model.SkillRequest;
+import com.example.demo.model.SkillOffer;
+import com.example.demo.model.SkillRequest;
 
 public class MatchDto {
 

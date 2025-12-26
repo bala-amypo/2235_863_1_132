@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private final String SECRET_KEY = "skillbarter-secret-key";
+    private final String SECRET_KEY = "skilldemo-secret-key";
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
     public String generateToken(String email, String role, Long userId) {

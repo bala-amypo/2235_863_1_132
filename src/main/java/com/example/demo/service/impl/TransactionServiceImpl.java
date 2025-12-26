@@ -1,9 +1,9 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.BarterTransaction;
+import com.example.demo.model.demoTransaction;
 import com.example.demo.model.SkillMatch;
-import com.example.demo.repository.BarterTransactionRepository;
+import com.example.demo.repository.demoTransactionRepository;
 import com.example.demo.repository.SkillMatchRepository;
 import com.example.demo.service.TransactionService;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final BarterTransactionRepository transactionRepository;
+    private final demoTransactionRepository transactionRepository;
     private final SkillMatchRepository matchRepository;
 
     public TransactionServiceImpl(
-            BarterTransactionRepository transactionRepository,
+            demoTransactionRepository transactionRepository,
             SkillMatchRepository matchRepository
     ) {
         this.transactionRepository = transactionRepository;
@@ -26,27 +26,27 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public BarterTransaction create(Long matchId) {
+    public demoTransaction create(Long matchId) {
         SkillMatch match = matchRepository.findById(matchId)
                 .orElseThrow(() -> new ResourceNotFoundException("Match not found"));
 
-        return transactionRepository.save(new BarterTransaction(match));
+        return transactionRepository.save(new demoTransaction(match));
     }
 
     @Override
-    public BarterTransaction getById(Long id) {
+    public demoTransaction getById(Long id) {
         return transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
     }
 
     @Override
-    public List<BarterTransaction> getAll() {
+    public List<demoTransaction> getAll() {
         return transactionRepository.findAll();
     }
 
     @Override
-    public BarterTransaction complete(Long transactionId, Integer offererRating, Integer requesterRating) {
-        BarterTransaction tx = getById(transactionId);
+    public demoTransaction complete(Long transactionId, Integer offererRating, Integer requesterRating) {
+        demoTransaction tx = getById(transactionId);
 
         tx.setOffererRating(offererRating);
         tx.setRequesterRating(requesterRating);
