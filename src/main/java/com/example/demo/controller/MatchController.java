@@ -1,34 +1,28 @@
-package com.example.demo.controller;
+package com.example.barter.controller;
 
-import com.example.demo.model.MatchRecord;
-import com.example.demo.service.MatchmakingService;
-import org.springframework.http.ResponseEntity;
+import com.example.barter.model.SkillMatch;
+import com.example.barter.service.MatchService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/matches")
+@RequestMapping("/matches")
 public class MatchController {
 
-    private final MatchmakingService matchService;
+    private final MatchService matchService;
 
-    public MatchController(MatchmakingService matchService) {
+    public MatchController(MatchService matchService) {
         this.matchService = matchService;
     }
 
-    @PostMapping
-    public ResponseEntity<MatchRecord> generate(@RequestParam Long requestId) {
-        return ResponseEntity.ok(matchService.generateMatch(requestId));
+    @GetMapping("/{id}")
+    public SkillMatch get(@PathVariable Long id) {
+        return matchService.getMatchById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<MatchRecord>> list() {
-        return ResponseEntity.ok(matchService.getAllMatches());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MatchRecord> get(@PathVariable Long id) {
-        return ResponseEntity.ok(matchService.getMatchById(id));
+    public List<SkillMatch> all() {
+        return matchService.getAllMatches();
     }
 }

@@ -1,14 +1,13 @@
-package com.example.demo.controller;
+package com.example.barter.controller;
 
-import com.example.demo.model.SkillRequest;
-import com.example.demo.service.SkillRequestService;
-import org.springframework.http.ResponseEntity;
+import com.example.barter.model.SkillRequest;
+import com.example.barter.service.SkillRequestService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/requests")
+@RequestMapping("/requests")
 public class SkillRequestController {
 
     private final SkillRequestService requestService;
@@ -18,32 +17,17 @@ public class SkillRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<SkillRequest> create(@RequestBody SkillRequest request) {
-        return ResponseEntity.ok(requestService.createRequest(request));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<SkillRequest>> list() {
-        return ResponseEntity.ok(requestService.getAllRequests());
+    public SkillRequest create(@RequestBody SkillRequest request) {
+        return requestService.createRequest(request);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SkillRequest> get(@PathVariable Long id) {
-        return ResponseEntity.ok(requestService.getRequestById(id));
+    public SkillRequest get(@PathVariable Long id) {
+        return requestService.getRequestById(id);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<SkillRequest>> byUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(requestService.getRequestsByUser(userId));
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<SkillRequest>> byCategory(@PathVariable Long categoryId) {
-        return ResponseEntity.ok(requestService.getRequestsByCategory(categoryId));
-    }
-
-    @GetMapping("/open")
-    public ResponseEntity<List<SkillRequest>> open() {
-        return ResponseEntity.ok(requestService.getOpenRequests());
+    @GetMapping
+    public List<SkillRequest> all() {
+        return requestService.getAllRequests();
     }
 }

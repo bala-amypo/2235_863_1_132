@@ -1,11 +1,10 @@
-package com.example.demo.controller;
+package com.example.barter.controller;
 
-import com.example.demo.dto.LoginRequest;
-import com.example.demo.dto.LoginResponse;
-import com.example.demo.model.AppUser;
-import com.example.demo.security.JwtUtil;
-import com.example.demo.service.UserService;
-import org.springframework.http.ResponseEntity;
+import com.example.barter.dto.AuthRequest;
+import com.example.barter.dto.AuthResponse;
+import com.example.barter.model.User;
+import com.example.barter.security.JwtUtil;
+import com.example.barter.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,15 +20,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        AppUser user = userService.findByEmail(request.getEmail());
-
-        String token = jwtUtil.generateToken(
-                user.getEmail(),
-                user.getRole(),
-                user.getId()
-        );
-
-        return ResponseEntity.ok(new LoginResponse(token));
+    public AuthResponse login(@RequestBody AuthRequest request) {
+        User user = userService.findByEmail(request.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail());
+        return new AuthResponse(token);
     }
 }

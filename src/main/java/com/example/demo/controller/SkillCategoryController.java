@@ -1,14 +1,13 @@
-package com.example.demo.controller;
+package com.example.barter.controller;
 
-import com.example.demo.model.SkillCategory;
-import com.example.demo.service.SkillCategoryService;
-import org.springframework.http.ResponseEntity;
+import com.example.barter.model.SkillCategory;
+import com.example.barter.service.SkillCategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 public class SkillCategoryController {
 
     private final SkillCategoryService categoryService;
@@ -18,17 +17,17 @@ public class SkillCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<SkillCategory> create(@RequestBody SkillCategory category) {
-        return ResponseEntity.ok(categoryService.createCategory(category));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<SkillCategory>> list() {
-        return ResponseEntity.ok(categoryService.getAllCategories());
+    public SkillCategory create(@RequestBody SkillCategory category) {
+        return categoryService.createCategory(category);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SkillCategory> get(@PathVariable Long id) {
-        return ResponseEntity.ok(categoryService.getCategory(id));
+    public SkillCategory get(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    @GetMapping
+    public List<SkillCategory> all() {
+        return categoryService.getAllCategories();
     }
 }
