@@ -1,12 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
+import com.example.demo.model.AppUser;
 
 public interface UserService {
 
-    User createUser(User user);
-
-    User getUserById(Long id);
-
-    void deactivateUser(Long id);
+    AppUser findByEmail(String email);
 }

@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.TransactionDto;
-import com.example.demo.model.BarterTransaction;
+import com.example.demo.model.UserProfile;
 
-public interface TransactionService {
+public interface UserProfileService {
 
-    BarterTransaction createTransaction(TransactionDto dto);
+    UserProfile createUser(UserProfile profile);
+
+    UserProfile getUserById(Long id);
+
+    void deactivateUser(Long id);
 }

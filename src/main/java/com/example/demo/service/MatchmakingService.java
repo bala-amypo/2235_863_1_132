@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.SkillMatch;
+import com.example.demo.model.MatchRecord;
 import java.util.List;
 
-public interface MatchService {
+public interface MatchmakingService {
 
-    SkillMatch generateMatch(Long requestId);
+    MatchRecord generateMatch(Long userId);
 
-    List<SkillMatch> getMatchesForUser(Long userId);
+    List<MatchRecord> getMatchesForUser(Long userId);
 }
