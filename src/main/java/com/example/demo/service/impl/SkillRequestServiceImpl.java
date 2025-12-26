@@ -1,50 +1,50 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SkillRequest;
 import com.example.demo.repository.SkillRequestRepository;
 import com.example.demo.service.SkillRequestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SkillRequestServiceImpl implements SkillRequestService {
 
-    private final SkillRequestRepository requestRepository;
+    private final SkillRequestRepository repository;
 
-    public SkillRequestServiceImpl(SkillRequestRepository requestRepository) {
-        this.requestRepository = requestRepository;
+    public SkillRequestServiceImpl(SkillRequestRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public SkillRequest createRequest(SkillRequest request) {
-        return requestRepository.save(request);
+        return repository.save(request);
     }
 
     @Override
-    public SkillRequest getRequestById(Long id) {
-        return requestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("SkillRequest not found with id " + id));
+    public Optional<SkillRequest> getRequestById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
     public List<SkillRequest> getAllRequests() {
-        return requestRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public List<SkillRequest> getRequestsByUser(Long userId) {
-        return requestRepository.findByUserId(userId);
+    public List<SkillRequest> getRequestsByUserId(Long userId) {
+        return repository.findByUserId(userId);
     }
 
     @Override
-    public List<SkillRequest> getRequestsByCategory(Long categoryId) {
-        return requestRepository.findByCategoryId(categoryId);
+    public SkillRequest updateRequest(Long id, SkillRequest request) {
+        request.setId(id);
+        return repository.save(request);
     }
 
     @Override
-    public List<SkillRequest> getOpenRequests() {
-        return requestRepository.findByStatus("OPEN");
+    public void deleteRequest(Long id) {
+        repository.deleteById(id);
     }
 }

@@ -1,35 +1,45 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.SkillCategory;
-import com.example.demo.repository.SkillCategoryRepository;
-import com.example.demo.service.SkillCategoryService;
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class SkillCategoryServiceImpl implements SkillCategoryService {
+public class UserServiceImpl implements UserService {
 
-    private final SkillCategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
-    public SkillCategoryServiceImpl(SkillCategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public SkillCategory createCategory(SkillCategory category) {
-        return categoryRepository.save(category);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public SkillCategory getCategory(Long id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public List<SkillCategory> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(Long id, User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

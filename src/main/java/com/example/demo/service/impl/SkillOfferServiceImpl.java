@@ -1,50 +1,50 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SkillOffer;
 import com.example.demo.repository.SkillOfferRepository;
 import com.example.demo.service.SkillOfferService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SkillOfferServiceImpl implements SkillOfferService {
 
-    private final SkillOfferRepository offerRepository;
+    private final SkillOfferRepository repository;
 
-    public SkillOfferServiceImpl(SkillOfferRepository offerRepository) {
-        this.offerRepository = offerRepository;
+    public SkillOfferServiceImpl(SkillOfferRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public SkillOffer createOffer(SkillOffer offer) {
-        return offerRepository.save(offer);
+        return repository.save(offer);
     }
 
     @Override
-    public SkillOffer getOfferById(Long id) {
-        return offerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("SkillOffer not found with id " + id));
+    public Optional<SkillOffer> getOfferById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
     public List<SkillOffer> getAllOffers() {
-        return offerRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public List<SkillOffer> getOffersByUser(Long userId) {
-        return offerRepository.findByUserId(userId);
+    public List<SkillOffer> getOffersByUserId(Long userId) {
+        return repository.findByUserId(userId);
     }
 
     @Override
-    public List<SkillOffer> getOffersByCategory(Long categoryId) {
-        return offerRepository.findByCategoryId(categoryId);
+    public SkillOffer updateOffer(Long id, SkillOffer offer) {
+        offer.setId(id);
+        return repository.save(offer);
     }
 
     @Override
-    public List<SkillOffer> getAvailableOffers() {
-        return offerRepository.findByAvailableTrue();
+    public void deleteOffer(Long id) {
+        repository.deleteById(id);
     }
 }

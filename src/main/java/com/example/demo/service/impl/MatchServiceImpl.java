@@ -1,62 +1,44 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SkillMatch;
-import com.example.demo.model.SkillOffer;
-import com.example.demo.model.SkillRequest;
 import com.example.demo.repository.SkillMatchRepository;
-import com.example.demo.repository.SkillOfferRepository;
-import com.example.demo.repository.SkillRequestRepository;
 import com.example.demo.service.MatchService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MatchServiceImpl implements MatchService {
 
-    private final SkillMatchRepository matchRepository;
-    private final SkillRequestRepository requestRepository;
-    private final SkillOfferRepository offerRepository;
+    private final SkillMatchRepository repository;
 
-    public MatchServiceImpl(
-            SkillMatchRepository matchRepository,
-            SkillRequestRepository requestRepository,
-            SkillOfferRepository offerRepository
-    ) {
-        this.matchRepository = matchRepository;
-        this.requestRepository = requestRepository;
-        this.offerRepository = offerRepository;
+    public MatchServiceImpl(SkillMatchRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public SkillMatch generateMatch(Long requestId) {
-        SkillRequest request = requestRepository.findById(requestId)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
-
-        SkillOffer offer = offerRepository.findByCategoryId(request.getCategory().getId())
-                .stream()
-                .filter(SkillOffer::isAvailable)
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("No matching offer found"));
-
-        offer.setAvailable(false);
-        offerRepository.save(offer);
-
-        request.setStatus("MATCHED");
-        requestRepository.save(request);
-
-        return matchRepository.save(new SkillMatch(request, offer));
+    public SkillMatch createMatch(SkillMatch match) {
+        return repository.save(match);
     }
 
     @Override
-    public SkillMatch getMatchById(Long id) {
-        return matchRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Match not found with id " + id));
+    public Optional<SkillMatch> getMatchById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
     public List<SkillMatch> getAllMatches() {
-        return matchRepository.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public List<SkillMatch> getMatchesByOfferOrRequestId(Long offerId, Long requestId) {
+        return repository.findByOfferIdOrRequestId(offerId, requestId);
+    }
+
+    @Override
+    public void deleteMatch(Long id) {
+        repository.deleteById(id);
     }
 }
