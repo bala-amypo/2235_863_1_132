@@ -2,16 +2,43 @@ package com.example.demo.dto;
 
 public class MatchDto {
 
-    private Long user1Id;
-    private Long user2Id;
-    private String skill;
+    private Long matchId;
+    private Long userAId;
+    private Long userBId;
+    private String status;
 
-    public Long getUser1Id() { return user1Id; }
-    public void setUser1Id(Long user1Id) { this.user1Id = user1Id; }
+    public MatchDto() {
+    }
 
-    public Long getUser2Id() { return user2Id; }
-    public void setUser2Id(Long user2Id) { this.user2Id = user2Id; }
+    public Long getMatchId() {
+        return matchId;
+    }
 
-    public String getSkill() { return skill; }
-    public void setSkill(String skill) { this.skill = skill; }
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
+    }
+
+    public Long getUserAId() {
+        return userAId;
+    }
+
+    public void setUserAId(Long userAId) {
+        this.userAId = userAId;
+    }
+
+    public Long getUserBId() {
+        return userBId;
+    }
+
+    public void setUserBId(Long userBId) {
+        this.userBId = userBId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

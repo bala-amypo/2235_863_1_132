@@ -2,17 +2,43 @@ package com.example.demo.dto;
 
 public class TransactionDto {
 
-    private Long userId;
-    private Double amount;
-    private String type;
+    private Long matchId;
+    private Long fromUserId;
+    private Long toUserId;
+    private String remarks;
 
-    // Getters and Setters
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public TransactionDto() {
+    }
 
-    public Double getAmount() { return amount; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    public Long getMatchId() {
+        return matchId;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
+    }
+
+    public Long getFromUserId() {
+        return fromUserId;
+    }
+
+    public void setFromUserId(Long fromUserId) {
+        this.fromUserId = fromUserId;
+    }
+
+    public Long getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 }

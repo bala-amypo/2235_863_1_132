@@ -1,27 +1,23 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.BarterTransaction;
 import com.example.demo.dto.TransactionDto;
+import com.example.demo.model.BarterTransaction;
 import com.example.demo.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService service;
 
-    @GetMapping
-    public List<BarterTransaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+    public TransactionController(TransactionService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public BarterTransaction createTransaction(@RequestBody TransactionDto transactionDto) {
-        return transactionService.createTransaction(transactionDto);
+    public ResponseEntity<BarterTransaction> create(@RequestBody TransactionDto dto) {
+        return ResponseEntity.ok(service.createTransaction(dto));
     }
 }

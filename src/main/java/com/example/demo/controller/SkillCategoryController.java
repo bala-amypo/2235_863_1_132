@@ -2,26 +2,28 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SkillCategory;
 import com.example.demo.service.SkillCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 public class SkillCategoryController {
 
-    @Autowired
-    private SkillCategoryService categoryService;
+    private final SkillCategoryService service;
 
-    @GetMapping
-    public List<SkillCategory> getAllCategories() {
-        return categoryService.getAllCategories();
+    public SkillCategoryController(SkillCategoryService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<SkillCategory> createCategory(@RequestBody SkillCategory category) {
-        return ResponseEntity.ok(categoryService.createCategory(category));
+    public ResponseEntity<SkillCategory> create(@RequestBody SkillCategory category) {
+        return ResponseEntity.ok(service.create(category));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SkillCategory>> list() {
+        return ResponseEntity.ok(service.getAll());
     }
 }

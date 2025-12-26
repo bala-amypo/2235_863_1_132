@@ -2,29 +2,26 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SkillOffer;
 import com.example.demo.service.SkillOfferService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/offers")
+@RequestMapping("/offers")
 public class SkillOfferController {
 
-    @Autowired
-    private SkillOfferService offerService;
+    private final SkillOfferService service;
 
-@GetMapping
-public List<SkillOffer> getAllOffers() {
-    return offerService.getAllOffers();
+    public SkillOfferController(SkillOfferService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity<SkillOffer> create(@RequestBody SkillOffer offer) {
+        return ResponseEntity.ok(service.createOffer(offer));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SkillOffer> get(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getOfferById(id));
+    }
 }
-
-@PostMapping
-public SkillOffer createOffer(@RequestBody SkillOffer skillOffer) {
-    return offerService.createOffer(skillOffer);
-}
-
-}
-
-
