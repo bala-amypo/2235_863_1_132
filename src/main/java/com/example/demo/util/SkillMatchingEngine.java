@@ -1,54 +1,59 @@
 package com.example.demo.util;
 
-import com.example.demo.model.SkillMatch;
 import com.example.demo.model.SkillOffer;
 import com.example.demo.model.SkillRequest;
+import com.example.demo.model.SkillMatch;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkillMatchingEngine {
 
     /**
-     * Calculates match score between a SkillOffer and SkillRequest.
-     * Score range: 0.0 – 100.0
+     * Match skill offers with skill requests based on skill name and experience level.
+     *
+     * @param offers   List of SkillOffer
+     * @param requests List of SkillRequest
+     * @return List of SkillMatch with match scores
      */
-    public double calculateMatchScore(SkillOffer offer, SkillRequest request) {
+    public static List<SkillMatch> matchSkills(List<SkillOffer> offers, List<SkillRequest> requests) {
+        List<SkillMatch> matches = new ArrayList<>();
 
-        if (offer == null || request == null) {
-            return 0.0;
-        }
-
-        double score = 0.0;
-
-        // Skill name similarity
-        if (offer.getSkillName() != null && request.getSkillName() != null) {
-            if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
-                score += 50.0;
+        for (SkillOffer offer : offers) {
+            for (SkillRequest request : requests) {
+                if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
+                    double score = calculateScore(offer, request);
+                    SkillMatch match = new SkillMatch();
+                    match.setOffer(offer);
+                    match.setRequest(request);
+                    match.setMatchScore(score);
+                    matches.add(match);
+                }
             }
         }
 
-        // Category match
-        if (offer.getCategory() != null && request.getCategory() != null) {
-            if (offer.getCategory().getId().equals(request.getCategory().getId())) {
-                score += 30.0;
-            }
-        }
-
-        // Experience / required level alignment
-        if (offer.getExperienceLevel() != null && request.getRequiredLevel() != null) {
-            if (offer.getExperienceLevel().equalsIgnoreCase(request.getRequiredLevel())) {
-                score += 20.0;
-            }
-        }
-
-        // Cap score at 100
-        return Math.min(score, 100.0);
+        return matches;
     }
 
     /**
-     * Applies score to SkillMatch entity.
+     * Calculate a simple match score based on experience and required levels.
+     *
+     * @param offer   SkillOffer
+     * @param request SkillRequest
+     * @return match score (0-100)
      */
-    public SkillMatch applyScore(SkillMatch match) {
-        double score = calculateMatchScore(match.getOffer(), match.getRequest());
-        match.setMatchScore(score);
-        return match;
+    private static double calculateScore(SkillOffer offer, SkillRequest request) {
+        int offerLevel = offer.getExperienceLevel();
+        int requestLevel = request.getRequiredLevel();
+
+        // Basic scoring: 100 if exact match, less if lower
+        double score = 0;
+        if (offerLevel >= requestLevel) {
+            score = 100;
+        } else {
+            score = ((double) offerLevel / requestLevel) * 100;
+        }
+
+        return score;
     }
 }

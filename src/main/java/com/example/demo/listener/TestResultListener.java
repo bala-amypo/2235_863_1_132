@@ -7,35 +7,40 @@ import org.testng.ITestResult;
 public class TestResultListener implements ITestListener {
 
     @Override
-    public void onStart(ITestContext context) {
-        System.out.println("===== Test Suite Started: " + context.getName() + " =====");
-    }
-
-    @Override
-    public void onFinish(ITestContext context) {
-        System.out.println("===== Test Suite Finished: " + context.getName() + " =====");
-    }
-
-    @Override
     public void onTestStart(ITestResult result) {
-        System.out.println("STARTED  : " + result.getMethod().getMethodName());
+        System.out.println("TEST STARTED: " + result.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("PASSED   : " + result.getMethod().getMethodName());
+        System.out.println("TEST PASSED: " + result.getName());
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("FAILED   : " + result.getMethod().getMethodName());
+        System.out.println("TEST FAILED: " + result.getName());
         if (result.getThrowable() != null) {
-            System.out.println("REASON   : " + result.getThrowable().getMessage());
+            result.getThrowable().printStackTrace();
         }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("SKIPPED  : " + result.getMethod().getMethodName());
+        System.out.println("TEST SKIPPED: " + result.getName());
+    }
+
+    @Override
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+        System.out.println("TEST PARTIALLY SUCCESSFUL: " + result.getName());
+    }
+
+    @Override
+    public void onStart(ITestContext context) {
+        System.out.println("TEST SUITE STARTED: " + context.getName());
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
+        System.out.println("TEST SUITE FINISHED: " + context.getName());
     }
 }
