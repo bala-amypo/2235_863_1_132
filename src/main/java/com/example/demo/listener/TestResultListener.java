@@ -8,39 +8,36 @@ public class TestResultListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        System.out.println("TEST STARTED: " + result.getName());
+        // no-op
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("TEST PASSED: " + result.getName());
+        // no-op
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("TEST FAILED: " + result.getName());
-        if (result.getThrowable() != null) {
-            result.getThrowable().printStackTrace();
-        }
+        // no-op
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("TEST SKIPPED: " + result.getName());
+        // no-op
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        System.out.println("TEST PARTIALLY SUCCESSFUL: " + result.getName());
+        // no-op
     }
 
     @Override
     public void onStart(ITestContext context) {
-        System.out.println("TEST SUITE STARTED: " + context.getName());
+        // no-op
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        System.out.println("TEST SUITE FINISHED: " + context.getName());
+        // no-op
     }
 }
