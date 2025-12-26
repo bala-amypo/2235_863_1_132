@@ -1,41 +1,36 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
-    private String email;
-    private String password;
+    private String role;
+    private int skillLevel;
 
-    @OneToMany(mappedBy = "user")
-    private Set<SkillOffer> skillOffers;
-
-    @OneToMany(mappedBy = "user")
-    private Set<SkillRequest> skillRequests;
+    // Constructors
+    public User() {}
+    
+    public User(String username, String role, int skillLevel) {
+        this.username = username;
+        this.role = role;
+        this.skillLevel = skillLevel;
+    }
 
     // Getters and Setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-    public Set<SkillOffer> getSkillOffers() { return skillOffers; }
-    public void setSkillOffers(Set<SkillOffer> skillOffers) { this.skillOffers = skillOffers; }
-    public Set<SkillRequest> getSkillRequests() { return skillRequests; }
-    public void setSkillRequests(Set<SkillRequest> skillRequests) { this.skillRequests = skillRequests; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public int getSkillLevel() { return skillLevel; }
+    public void setSkillLevel(int skillLevel) { this.skillLevel = skillLevel; }
 }
-
-
-
-private int skillLevel;
-
-public int getSkillLevel() { return skillLevel; }
-public void setSkillLevel(int skillLevel) { this.skillLevel = skillLevel; }
