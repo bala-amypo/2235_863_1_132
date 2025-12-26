@@ -3,39 +3,78 @@ package com.example.demo.dto;
 import java.time.LocalDateTime;
 
 public class TransactionDto {
-    private Long transactionId;
+
+    private Long id;
     private Long matchId;
     private String status;
-    private LocalDateTime completedDate;
     private Integer offererRating;
     private Integer requesterRating;
-    
-    public TransactionDto() {}
-    
-    public TransactionDto(Long transactionId, Long matchId, String status, LocalDateTime completedDate, Integer offererRating, Integer requesterRating) {
-        this.transactionId = transactionId;
+    private LocalDateTime completedAt;
+
+    public TransactionDto() {
+    }
+
+    public TransactionDto(
+            Long id,
+            Long matchId,
+            String status,
+            Integer offererRating,
+            Integer requesterRating,
+            LocalDateTime completedAt
+    ) {
+        this.id = id;
         this.matchId = matchId;
         this.status = status;
-        this.completedDate = completedDate;
         this.offererRating = offererRating;
         this.requesterRating = requesterRating;
+        this.completedAt = completedAt;
     }
-    
-    public Long getTransactionId() { return transactionId; }
-    public void setTransactionId(Long transactionId) { this.transactionId = transactionId; }
-    
-    public Long getMatchId() { return matchId; }
-    public void setMatchId(Long matchId) { this.matchId = matchId; }
-    
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    
-    public LocalDateTime getCompletedDate() { return completedDate; }
-    public void setCompletedDate(LocalDateTime completedDate) { this.completedDate = completedDate; }
-    
-    public Integer getOffererRating() { return offererRating; }
-    public void setOffererRating(Integer offererRating) { this.offererRating = offererRating; }
-    
-    public Integer getRequesterRating() { return requesterRating; }
-    public void setRequesterRating(Integer requesterRating) { this.requesterRating = requesterRating; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getMatchId() {
+        return matchId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Integer getOffererRating() {
+        return offererRating;
+    }
+
+    public Integer getRequesterRating() {
+        return requesterRating;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setOffererRating(Integer offererRating) {
+        this.offererRating = offererRating;
+    }
+
+    public void setRequesterRating(Integer requesterRating) {
+        this.requesterRating = requesterRating;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
 }
