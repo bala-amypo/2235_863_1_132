@@ -20,3 +20,5 @@ public class MatchRecordController {
         return ResponseEntity.ok(matchmakingService.generateMatch(userId));
     }
 }
+
+
