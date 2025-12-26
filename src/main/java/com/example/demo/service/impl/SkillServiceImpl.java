@@ -1,21 +1,21 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.SkillCategory;
-import com.example.demo.service.SkillCategoryService;
+import com.example.demo.model.Skill;
+import com.example.demo.service.SkillService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SkillCategoryServiceImpl implements SkillCategoryService {
+public class SkillServiceImpl implements SkillService {
 
     @Override
-    public SkillCategory create(SkillCategory category) {
-        return category;
+    public Skill updateSkill(Long id, Skill skill) {
+        return skill;
     }
 
     @Override
-    public List<SkillCategory> getAll() {
+    public List<Skill> getAllSkills() {
         return List.of();
     }
 }

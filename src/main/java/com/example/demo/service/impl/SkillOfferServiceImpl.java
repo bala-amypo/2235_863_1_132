@@ -16,9 +16,7 @@ public class SkillOfferServiceImpl implements SkillOfferService {
 
     @Override
     public SkillOffer getOfferById(Long id) {
-        SkillOffer offer = new SkillOffer();
-        offer.setId(id);
-        return offer;
+        return new SkillOffer();
     }
 
     @Override

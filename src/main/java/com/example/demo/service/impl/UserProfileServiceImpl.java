@@ -1,17 +1,24 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.TransactionDto;
-import com.example.demo.model.BarterTransaction;
-import com.example.demo.service.TransactionService;
+import com.example.demo.model.UserProfile;
+import com.example.demo.service.UserProfileService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionServiceImpl implements TransactionService {
+public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
-    public BarterTransaction createTransaction(TransactionDto dto) {
-        BarterTransaction tx = new BarterTransaction();
-        tx.setRemarks(dto.getRemarks());
-        return tx;
+    public UserProfile createUser(UserProfile profile) {
+        return profile;
+    }
+
+    @Override
+    public UserProfile getUserById(Long id) {
+        return new UserProfile();
+    }
+
+    @Override
+    public void deactivateUser(Long id) {
+        // no-op
     }
 }

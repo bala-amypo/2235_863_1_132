@@ -16,9 +16,7 @@ public class SkillRequestServiceImpl implements SkillRequestService {
 
     @Override
     public SkillRequest getRequestById(Long id) {
-        SkillRequest request = new SkillRequest();
-        request.setId(id);
-        return request;
+        return new SkillRequest();
     }
 
     @Override

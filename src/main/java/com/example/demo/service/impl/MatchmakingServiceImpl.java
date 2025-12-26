@@ -1,23 +1,21 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.SkillMatch;
-import com.example.demo.service.MatchService;
+import com.example.demo.model.MatchRecord;
+import com.example.demo.service.MatchmakingService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MatchServiceImpl implements MatchService {
+public class MatchmakingServiceImpl implements MatchmakingService {
 
     @Override
-    public SkillMatch generateMatch(Long requestId) {
-        SkillMatch match = new SkillMatch();
-        match.setStatus("PENDING");
-        return match;
+    public MatchRecord generateMatch(Long userId) {
+        return new MatchRecord();
     }
 
     @Override
-    public List<SkillMatch> getMatchesForUser(Long userId) {
+    public List<MatchRecord> getMatchesForUser(Long userId) {
         return List.of();
     }
 }
