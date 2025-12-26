@@ -4,9 +4,7 @@ import com.example.demo.model.SkillOffer;
 import com.example.demo.repository.SkillOfferRepository;
 import com.example.demo.service.SkillOfferService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SkillOfferServiceImpl implements SkillOfferService {
@@ -18,33 +16,23 @@ public class SkillOfferServiceImpl implements SkillOfferService {
     }
 
     @Override
-    public SkillOffer createOffer(SkillOffer offer) {
+    public SkillOffer createSkillOffer(SkillOffer offer) {
         return repository.save(offer);
     }
 
     @Override
-    public Optional<SkillOffer> getOfferById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public List<SkillOffer> getAllOffers() {
+    public List<SkillOffer> getAllSkillOffers() {
         return repository.findAll();
     }
 
     @Override
-    public List<SkillOffer> getOffersByUserId(Long userId) {
-        return repository.findByUserId(userId);
+    public SkillOffer getSkillOfferById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("SkillOffer not found"));
     }
 
     @Override
-    public SkillOffer updateOffer(Long id, SkillOffer offer) {
-        offer.setId(id);
-        return repository.save(offer);
-    }
-
-    @Override
-    public void deleteOffer(Long id) {
+    public void deleteSkillOffer(Long id) {
         repository.deleteById(id);
     }
 }

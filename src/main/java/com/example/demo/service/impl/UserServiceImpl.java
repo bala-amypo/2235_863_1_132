@@ -1,45 +1,50 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.AuthRequest;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public User register(User user) {
+        return repository.save(user);
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public String login(AuthRequest request) {
+        User user = repository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (user.getPassword().equals(request.getPassword())) {
+            return "Login successful"; // JWT token logic can be added here
+        }
+        throw new RuntimeException("Invalid credentials");
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public User updateUser(Long id, User user) {
-        user.setId(id);
-        return userRepository.save(user);
+    public User getUserById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }
