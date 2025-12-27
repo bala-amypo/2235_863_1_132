@@ -136,7 +136,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/**",
-                    "/users",                 // ✅ allow signup
+                    "/users",   
+                    "/users/*",               // ✅ allow signup
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html"
