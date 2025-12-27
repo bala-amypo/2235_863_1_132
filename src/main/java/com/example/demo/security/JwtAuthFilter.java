@@ -38,7 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // This minimal logic is enough for Swagger fix
         filterChain.doFilter(request, response);
     }
-}*/
+} */
 
 package com.example.demo.security;
 

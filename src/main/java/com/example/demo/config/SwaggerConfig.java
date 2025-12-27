@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 )
                 .servers(List.of(server));
     }
-}*/
+} */
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -59,7 +59,7 @@ public class SwaggerConfig {
                 .bearerFormat("JWT");
 
         Server server = new Server()
-                .url("https://9154.32procr.amypo.ai/")
+                .url("https://9125.32procr.amypo.ai/")
                 .description("Production Server");
 
         return new OpenAPI()

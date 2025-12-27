@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .roles(user.getRole().replace("ROLE_", ""))
                 .build();
     }
-}*/
+} */
 
 package com.example.demo.security;
 
