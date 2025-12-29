@@ -1,4 +1,4 @@
-/*package com.example.demo.config;
+package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 public class SecurityConfig {
@@ -17,23 +18,35 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+            // ✅ CORS FIX (for Swagger / browser)
+            .cors(cors -> cors.configurationSource(request -> {
+                CorsConfiguration config = new CorsConfiguration();
+                config.addAllowedOriginPattern("*");
+                config.addAllowedMethod("*");
+                config.addAllowedHeader("*");
+                config.setAllowCredentials(true);
+                return config;
+            }))
+
             .csrf(csrf -> csrf.disable())
+
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
+
             .authorizeHttpRequests(auth -> auth
 
-                // ✅ PUBLIC ENDPOINTS
+                // ✅ PUBLIC AUTH ENDPOINTS (FIXED PATH)
                 .requestMatchers(
-                    "/api/auth/**",
-                    "/users",          // POST signup
-                    "/users/*",        // GET /users/{id}
+                    "/auth/**",            // 🔴 was /api/auth/**
+                    "/users",
+                    "/users/*",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
 
-                // 🔐 ADMIN-ONLY
+                // 🔐 ADMIN ONLY
                 .requestMatchers(
                     "/users/*/deactivate"
                 ).hasRole("ADMIN")
@@ -56,5 +69,3 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 }
-*/
-
